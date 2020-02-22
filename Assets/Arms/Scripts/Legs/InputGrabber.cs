@@ -35,7 +35,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""GrabLeft"",
+                    ""name"": ""Suck"",
                     ""type"": ""Button"",
                     ""id"": ""a27d1667-8da4-4328-97b7-84e629d20ab8"",
                     ""expectedControlType"": ""Button"",
@@ -43,7 +43,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""GrabRight"",
+                    ""name"": ""Blow"",
                     ""type"": ""Button"",
                     ""id"": ""7e914bd0-11d2-4e50-9c1a-04677901c8c7"",
                     ""expectedControlType"": ""Button"",
@@ -114,7 +114,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GrabLeft"",
+                    ""action"": ""Suck"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -180,7 +180,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GrabRight"",
+                    ""action"": ""Blow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -193,8 +193,8 @@ public class @InputGrabber : IInputActionCollection, IDisposable
         m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
         m_InGame_MoveLeftLeg = m_InGame.FindAction("MoveLeftLeg", throwIfNotFound: true);
         m_InGame_MoveRightLeg = m_InGame.FindAction("MoveRightLeg", throwIfNotFound: true);
-        m_InGame_GrabLeft = m_InGame.FindAction("GrabLeft", throwIfNotFound: true);
-        m_InGame_GrabRight = m_InGame.FindAction("GrabRight", throwIfNotFound: true);
+        m_InGame_Suck = m_InGame.FindAction("Suck", throwIfNotFound: true);
+        m_InGame_Blow = m_InGame.FindAction("Blow", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -246,16 +246,16 @@ public class @InputGrabber : IInputActionCollection, IDisposable
     private IInGameActions m_InGameActionsCallbackInterface;
     private readonly InputAction m_InGame_MoveLeftLeg;
     private readonly InputAction m_InGame_MoveRightLeg;
-    private readonly InputAction m_InGame_GrabLeft;
-    private readonly InputAction m_InGame_GrabRight;
+    private readonly InputAction m_InGame_Suck;
+    private readonly InputAction m_InGame_Blow;
     public struct InGameActions
     {
         private @InputGrabber m_Wrapper;
         public InGameActions(@InputGrabber wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveLeftLeg => m_Wrapper.m_InGame_MoveLeftLeg;
         public InputAction @MoveRightLeg => m_Wrapper.m_InGame_MoveRightLeg;
-        public InputAction @GrabLeft => m_Wrapper.m_InGame_GrabLeft;
-        public InputAction @GrabRight => m_Wrapper.m_InGame_GrabRight;
+        public InputAction @Suck => m_Wrapper.m_InGame_Suck;
+        public InputAction @Blow => m_Wrapper.m_InGame_Blow;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -271,12 +271,12 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                 @MoveRightLeg.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveRightLeg;
                 @MoveRightLeg.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveRightLeg;
                 @MoveRightLeg.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveRightLeg;
-                @GrabLeft.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnGrabLeft;
-                @GrabLeft.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnGrabLeft;
-                @GrabLeft.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnGrabLeft;
-                @GrabRight.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnGrabRight;
-                @GrabRight.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnGrabRight;
-                @GrabRight.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnGrabRight;
+                @Suck.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
+                @Suck.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
+                @Suck.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
+                @Blow.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnBlow;
+                @Blow.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnBlow;
+                @Blow.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnBlow;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -287,12 +287,12 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                 @MoveRightLeg.started += instance.OnMoveRightLeg;
                 @MoveRightLeg.performed += instance.OnMoveRightLeg;
                 @MoveRightLeg.canceled += instance.OnMoveRightLeg;
-                @GrabLeft.started += instance.OnGrabLeft;
-                @GrabLeft.performed += instance.OnGrabLeft;
-                @GrabLeft.canceled += instance.OnGrabLeft;
-                @GrabRight.started += instance.OnGrabRight;
-                @GrabRight.performed += instance.OnGrabRight;
-                @GrabRight.canceled += instance.OnGrabRight;
+                @Suck.started += instance.OnSuck;
+                @Suck.performed += instance.OnSuck;
+                @Suck.canceled += instance.OnSuck;
+                @Blow.started += instance.OnBlow;
+                @Blow.performed += instance.OnBlow;
+                @Blow.canceled += instance.OnBlow;
             }
         }
     }
@@ -301,7 +301,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
     {
         void OnMoveLeftLeg(InputAction.CallbackContext context);
         void OnMoveRightLeg(InputAction.CallbackContext context);
-        void OnGrabLeft(InputAction.CallbackContext context);
-        void OnGrabRight(InputAction.CallbackContext context);
+        void OnSuck(InputAction.CallbackContext context);
+        void OnBlow(InputAction.CallbackContext context);
     }
 }

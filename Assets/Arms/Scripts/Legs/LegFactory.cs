@@ -14,7 +14,6 @@ public class LegFactory : MonoBehaviour
      private bool _isGrabbing; //WARNING: THIS IS ATTATCHED TO AN EVENT WHICH IS NEVER UNREJISTERED (when grabber is changed)
     [SerializeField] private SLegSettings _settings;
     [SerializeField] private GameObjectPool _pool;
-    [SerializeField] private GameObject _legPrefab;
     [SerializeField] private Color _color = Color.white;
     private Rigidbody2D _rigidbody2D;
     private Segment _tip;
@@ -22,7 +21,6 @@ public class LegFactory : MonoBehaviour
 
     private List<Segment> _segs;
     private List<Rigidbody2D> _rbs;
-    public event Action<Grabber> NewGrabberEvent;
 
     void Start()
     {
@@ -70,8 +68,7 @@ public class LegFactory : MonoBehaviour
 
             if (i == LegLength - 1) //make last seg new grabber
             {
-                currentSeg.BecomeNewGrabber();
-                currentSeg.GetComponent<Grabber>().ChangedGrabbedStateEvent += OnGrabberChangedState;
+                currentSeg.gameObject.AddComponent<Blower>();
             }
 
         }
@@ -88,7 +85,6 @@ public class LegFactory : MonoBehaviour
 
         float deltaY = (_settings.ScaleCurve.Evaluate(normalizedIndex - 0.5f) * _settings.JointSpacing);
         seg.transform.position = toAttachRb.gameObject.transform.position - new Vector3(0, deltaY, 0);
-        seg.IsNewGrabberEvent += OnNewGrabber; //notify factory when legs split
         jnt.connectedBody = toAttachRb;
 
         var spr = current.GetComponent<SpriteRenderer>();
@@ -104,9 +100,6 @@ public class LegFactory : MonoBehaviour
         rb.mass = _settings.MaxMass * _settings.MassCurve.Evaluate(normalizedIndex);
 
         current.transform.localScale = _settings.ScaleCurve.Evaluate(normalizedIndex) * _settings.MaxScale;
-        
-        
-        //seg.transform.position = transform.position + new Vector3(0, toAttachRb.gameObject.transform.position.y - (jnt.distance * 6), 0);
 
     }
 
@@ -118,37 +111,14 @@ public class LegFactory : MonoBehaviour
 
     public void MoveLegs(Vector2 input)
     {
-        if (_isGrabbing)
-            _rigidbody2D.AddForce(_settings.ForceOnBody * input);
 
         for (int i = 0; i < _rbs.Count; i++)
         {
             float normalizedIndex = (float) i / (_rbs.Count - 1);
-            if (_isGrabbing)
-            {
-                _rbs[i].AddForce(_settings.ClosedMaxForce * _settings.ClosedForceCurve.Evaluate(normalizedIndex) * input);
-                //Debug.Log("big force");
-            }
-            else
-            {
-                //Debug.Log("small force");
-                _rbs[i].AddForce(_settings.OpenMaxForce * _settings.OpenForceCurve.Evaluate(normalizedIndex) * input);
-            }
+            _rbs[i].AddForce(_settings.OpenMaxForce * _settings.OpenForceCurve.Evaluate(normalizedIndex) * input);
 
         }
         
     }
-
-    private void OnGrabberChangedState(bool trueFalse)
-    {
-        _isGrabbing = trueFalse;
-        //Debug.Log($"grabber changed state {trueFalse}");
-    }
-    private void OnNewGrabber(Grabber grabber)
-    {
-        //Debug.Log($"new grabber {grabber}");
-        grabber.ChangedGrabbedStateEvent += OnGrabberChangedState;
-        NewGrabberEvent?.Invoke(grabber);
-        //Debug.Log($"New Grabber Event {grabber}");
-    }
+    
 }

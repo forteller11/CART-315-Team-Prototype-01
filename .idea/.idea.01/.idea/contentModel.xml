@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Charly\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Charly\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_01.1967252017.00" t="ExcludeRecursive" />
+    <e p="D:\MOVE\Homework\Concordia Year 02\Semester 1\CART 315 -- Digital Prototyping\TeamPrototypes\01" t="IncludeRecursive">
+      <e p="01.sln" t="IncludeFlat" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Arms" t="Include">
+          <e p="NewBehaviourScript.cs" t="Include" />
+          <e p="Scripts" t="Include">
+            <e p="Helpers" t="Include">
+              <e p="Extensions.cs" t="Include" />
+              <e p="GameObjectPool.cs" t="Include" />
+              <e p="HandleInput.cs" t="Include" />
+              <e p="HelperFunctions.cs" t="Include" />
+              <e p="IPoolable.cs" t="Include" />
+            </e>
+            <e p="Legs" t="Include">
+              <e p="Blower.cs" t="Include" />
+              <e p="InputGrabber.cs" t="Include" />
+              <e p="LegFactory.cs" t="Include" />
+              <e p="Segment.cs" t="Include" />
+              <e p="SLegSettings.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

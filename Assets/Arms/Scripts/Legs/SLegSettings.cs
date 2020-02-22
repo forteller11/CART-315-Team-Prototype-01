@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 namespace Legs
 {
@@ -62,5 +63,13 @@ namespace Legs
 
         public float WidthMultiplier = 1f;
         public AnimationCurve WidthCurve = new AnimationCurve(DEFAULT_KEYFRAME);
+        
+        [Header("Blow forces")]
+        public float BlowBase = 1f;
+        public float BlowMult = 2f;
+        
+        [Header("Suck forces")]
+        public float SuckBase = 1f;
+        public float SuckMult = 2f;
     }
 }

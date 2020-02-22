@@ -22,7 +22,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "GrabLeft",
+                    "name": "Suck",
                     "type": "Button",
                     "id": "a27d1667-8da4-4328-97b7-84e629d20ab8",
                     "expectedControlType": "Button",
@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "GrabRight",
+                    "name": "Blow",
                     "type": "Button",
                     "id": "7e914bd0-11d2-4e50-9c1a-04677901c8c7",
                     "expectedControlType": "Button",
@@ -101,7 +101,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GrabLeft",
+                    "action": "Suck",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -167,7 +167,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GrabRight",
+                    "action": "Blow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
