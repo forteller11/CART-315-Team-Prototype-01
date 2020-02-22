@@ -10,6 +10,7 @@ using UnityEngine;
 
         private Rigidbody2D _rigidbody2D;
         private InputGrabber _inputGrabber;
+        private SpriteRenderer _spriteRenderer;
         [HideInInspector]
         public Vector3 LegTipDir; //normalized vec, set every frame by leg factory
 
@@ -17,6 +18,7 @@ using UnityEngine;
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _inputGrabber = new InputGrabber();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
             //do visual stuff sprite changes
             //sprite = settings.sprite
         }
@@ -36,6 +38,6 @@ using UnityEngine;
             Debug.DrawLine(transform.position,transform.position + suckForce.ToVector3XY(),Color.blue);
             Debug.DrawLine(transform.position,transform.position + blowForce.ToVector3XY(),Color.red);
             _rigidbody2D.AddForce(blowForce + suckForce);
-            
+
         }
     }

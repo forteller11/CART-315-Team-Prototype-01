@@ -21,11 +21,10 @@ namespace Helpers
             _input = new InputGrabber();
         }
         
-        private void FixedUpdate()
+        private void Update()
         {
             LeftLeg.MoveLegs( _input.InGame.MoveLeftLeg.ReadValue<Vector2>());
-            RightLeg.MoveLegs( _input.InGame.MoveRightLeg.ReadValue<Vector2>());
-            
+
             //_input.InGame.GrabLeft.started += context => HandleGrab(context, _leftGrabber);
             //_input.InGame.GrabRight.performed += context => HandleGrab(context, _rightGrabber);
 

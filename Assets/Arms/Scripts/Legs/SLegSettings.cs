@@ -71,5 +71,9 @@ namespace Legs
         [Header("Suck forces")]
         public float SuckBase = 1f;
         public float SuckMult = 2f;
+
+        [Header("Vaccum Sprites")]
+        public Sprite VaccumTipSprite;
+        public Sprite VaccumSegmentSprite;
     }
 }

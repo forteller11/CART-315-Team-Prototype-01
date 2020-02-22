@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71671f9fc50047af9f3758b99c4705fc, type: 3}
   m_Name: LegSettings01
   m_EditorClassIdentifier: 
-  MaxScale: {x: 2, y: 2, z: 1}
+  MaxScale: {x: 3, y: 3, z: 1}
   ScaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -26,17 +26,26 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.2959442
-      value: 0.87599355
-      inSlope: -0.56747967
-      outSlope: -0.56747967
+      time: 0.34291077
+      value: 0.83264333
+      inSlope: 0
+      outSlope: 0
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.9963346
-      value: 0.3124845
+      time: 0.7769619
+      value: 0.8868496
+      inSlope: 0.266564
+      outSlope: 0.266564
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9777799
+      value: 1.0018766
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -46,7 +55,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxMass: 0.4
+  MaxMass: 0.65
   MassCurve:
     serializedVersion: 2
     m_Curve:
@@ -60,8 +69,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6957119
-      value: 0.7062141
+      time: 0.55221826
+      value: 0.7041694
       inSlope: -0.894985
       outSlope: -0.894985
       tangentMode: 0
@@ -69,8 +78,8 @@ MonoBehaviour:
       inWeight: 0.091741726
       outWeight: 0.14337496
     - serializedVersion: 3
-      time: 0.9839349
-      value: 0.34293592
+      time: 0.9971795
+      value: 0.9560646
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -80,7 +89,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  OpenMaxForce: 7
+  OpenMaxForce: 14
   OpenForceCurve:
     serializedVersion: 2
     m_Curve:
@@ -259,8 +268,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  JointSpacing: 0.31
-  JointDistance: 0.367
+  JointSpacing: 0.458
+  JointDistance: 0.442
   ForceOnBody: 250
   WidthMultiplier: 0.2
   WidthCurve:
@@ -278,3 +287,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  BlowBase: 10
+  BlowMult: 2
+  SuckBase: 10
+  SuckMult: 2

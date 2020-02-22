@@ -8,7 +8,6 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Arms" t="Include">
-          <e p="NewBehaviourScript.cs" t="Include" />
           <e p="Scripts" t="Include">
             <e p="Helpers" t="Include">
               <e p="Extensions.cs" t="Include" />
@@ -21,6 +20,7 @@
               <e p="Blower.cs" t="Include" />
               <e p="InputGrabber.cs" t="Include" />
               <e p="LegFactory.cs" t="Include" />
+              <e p="NoRotation.cs" t="Include" />
               <e p="Segment.cs" t="Include" />
               <e p="SLegSettings.cs" t="Include" />
             </e>
