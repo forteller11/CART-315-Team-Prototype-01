@@ -16,7 +16,7 @@ public class LegFactory : MonoBehaviour
     [SerializeField] private GameObjectPool _pool;
     [SerializeField] private Color _color = Color.white;
     private Rigidbody2D _rigidbody2D;
-    private Segment _tip;
+    private Blower _blower;
     private LineRenderer _lr;
 
     private List<Segment> _segs;
@@ -68,7 +68,7 @@ public class LegFactory : MonoBehaviour
 
             if (i == LegLength - 1) //make last seg new grabber
             {
-                currentSeg.gameObject.AddComponent<Blower>();
+                _blower = MakeSegmentEndOfVaccum(currentSeg.gameObject);
             }
 
         }
@@ -107,6 +107,8 @@ public class LegFactory : MonoBehaviour
     {
         for (int i = 0; i < _rbs.Count; i++)
             _lr.SetPosition(i, _rbs[i].transform.position);
+
+        AsignBlowerDirection();
     }
 
     public void MoveLegs(Vector2 input)
@@ -118,7 +120,22 @@ public class LegFactory : MonoBehaviour
             _rbs[i].AddForce(_settings.OpenMaxForce * _settings.OpenForceCurve.Evaluate(normalizedIndex) * input);
 
         }
-        
+    }
+
+    private void AsignBlowerDirection()
+    {
+        var rbLast = _rbs[_rbs.Count - 1];
+        var rb2ndLast = _rbs[_rbs.Count - 2];
+
+        var legDir = Vector3.Normalize(rbLast.transform.position - rb2ndLast.transform.position);
+        _blower.LegTipDir = legDir;
+    }
+
+    Blower MakeSegmentEndOfVaccum(GameObject gameObject)
+    {
+        var blower = gameObject.AddComponent<Blower>();
+        blower.Settings = _settings;
+        return blower;
     }
     
 }

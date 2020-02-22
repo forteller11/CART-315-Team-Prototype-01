@@ -1,4 +1,5 @@
 ﻿using System;
+using Helpers;
 using Legs;
 using UnityEngine;
 
@@ -9,10 +10,13 @@ using UnityEngine;
 
         private Rigidbody2D _rigidbody2D;
         private InputGrabber _inputGrabber;
+        [HideInInspector]
+        public Vector3 LegTipDir; //normalized vec, set every frame by leg factory
 
-        private void Start()
+        private void Awake()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            _inputGrabber = new InputGrabber();
             //do visual stuff sprite changes
             //sprite = settings.sprite
         }
@@ -22,18 +26,15 @@ using UnityEngine;
 
         void Update()
         {
-            Debug.DrawLine(transform.position,transform.position+transform.forward);
-            
-            float zRot = transform.rotation.eulerAngles.z;
-            float xx = Mathf.Cos(zRot);
-            float yy = Mathf.Sin(zRot);
-            
-            float blowPressure = (_inputGrabber.InGame.Blow.ReadValue<float>() * Settings.BlowBase * Settings.BlowMult);
-            Vector2 blowForce = new Vector2(xx,yy) * blowPressure;
+
+            float blowPressure = _inputGrabber.InGame.Blow.ReadValue<float>() * Settings.BlowBase * Settings.BlowMult;
+            Vector2 blowForce = LegTipDir * blowPressure;
             
             float suckPressure = -1 * (_inputGrabber.InGame.Suck.ReadValue<float>() * Settings.SuckBase * Settings.SuckMult);
-            Vector2 suckForce = new Vector2(xx,yy) * suckPressure;
+            Vector2 suckForce = LegTipDir * suckPressure;
             
+            Debug.DrawLine(transform.position,transform.position + suckForce.ToVector3XY(),Color.blue);
+            Debug.DrawLine(transform.position,transform.position + blowForce.ToVector3XY(),Color.red);
             _rigidbody2D.AddForce(blowForce + suckForce);
             
         }

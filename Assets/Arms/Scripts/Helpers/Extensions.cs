@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 
@@ -96,6 +97,11 @@ namespace Helpers
             }
 
             return null;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 ToVector3XY(this Vector2 vec2)
+        {
+            return new Vector3(vec2.x, vec2.y, 0f);
         }
 
 
