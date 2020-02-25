@@ -103,6 +103,18 @@ namespace Helpers
         {
             return new Vector3(vec2.x, vec2.y, 0f);
         }
+        
+        /// <summary>
+        /// returns a unit vector pointing from v1 --> v2
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 DirectionTo(this Vector3 v1, Vector3 v2)
+        {
+            return Vector3.Normalize(v2 - v1);
+        }
 
 
     }

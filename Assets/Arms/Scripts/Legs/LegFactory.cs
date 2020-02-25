@@ -6,7 +6,6 @@ using Legs;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-
 //responsible for 
 public class LegFactory : MonoBehaviour
 {
@@ -16,12 +15,12 @@ public class LegFactory : MonoBehaviour
     [SerializeField] private GameObjectPool _pool;
     [SerializeField] private Color _color = Color.white;
     private Rigidbody2D _rigidbody2D;
-    private Blower _blower;
     private LineRenderer _lr;
-    private List<GameObject> _vaccumVisualizers;
 
     private List<Segment> _segs;
     private List<Rigidbody2D> _rbs;
+    private List<SpriteRenderer> _segRenderers;
+    private const float ALIGN_VERTICALLY = -90f;
 
     void Start()
     {
@@ -40,43 +39,37 @@ public class LegFactory : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _segs = new List<Segment>(LegLength);
         _rbs = new List<Rigidbody2D>(LegLength);
+        _segRenderers = new List<SpriteRenderer>(LegLength);
 
-        _vaccumVisualizers = new List<GameObject>(LegLength / 2);
-        for (int i = 0; i < LegLength; i++)
-        {
-            _vaccumVisualizers.Add(new GameObject($"Leg Visualizer {i}"));
-            var sprRenderer = _vaccumVisualizers[i].AddComponent<SpriteRenderer>();
-            if (i != LegLength - 1)
-                sprRenderer.sprite = _settings.VaccumSegmentSprite;
-            else
-                sprRenderer.sprite = _settings.VaccumTipSprite;
-        }
-        
         //spawn initial leg attached to leg factory
         Segment prevSeg;
         SpringJoint2D prevJnt;
         Rigidbody2D prevRb;
+        SpriteRenderer prevSprite;
 
-        CreateNewSegment(0f, _rigidbody2D, out prevSeg, out prevJnt, out prevRb);
+        CreateNewSegment(0f, _rigidbody2D, out prevSeg, out prevJnt, out prevRb, out prevSprite);
 
         _segs.Add(prevSeg);
         _rbs.Add(prevRb);
+        _segRenderers.Add(prevSprite);
 
         for (int i = 1; i < LegLength; i++) //spawn rest of legs
         {
             Segment currentSeg;
             SpringJoint2D currentJnt;
             Rigidbody2D currentRb;
-
+            SpriteRenderer currentSpriteRenderer;
+            
             float normIndex = (float) i / (LegLength-1);
 
-            CreateNewSegment(normIndex, prevRb, out currentSeg, out currentJnt, out currentRb);
+            CreateNewSegment(normIndex, prevRb, out currentSeg, out currentJnt, out currentRb, out currentSpriteRenderer);
 
             prevSeg.Next = currentSeg;
             currentSeg.Previous = prevSeg;
             
             _segs.Add(currentSeg);
             _rbs.Add(currentRb);
+            _segRenderers.Add(currentSpriteRenderer);
             
             prevJnt = currentJnt;
             prevRb = currentRb;
@@ -84,29 +77,30 @@ public class LegFactory : MonoBehaviour
 
             if (i == LegLength - 1) //make last seg new grabber
             {
-                _blower = MakeSegmentEndOfVaccum(currentSeg.gameObject);
+                MakeSegmentEndOfVaccum(currentSeg.gameObject);
+                currentSpriteRenderer.sprite = _settings.VaccumTipSprite;
             }
 
         }
     }
 
     void CreateNewSegment(float normalizedIndex, in Rigidbody2D toAttachRb, out Segment seg, out SpringJoint2D jnt,
-        out Rigidbody2D rb)
+        out Rigidbody2D rb, out SpriteRenderer sprRenderer)
     {
         var current = _pool.Spawn();
 
         seg = current.GetComponent<Segment>();
         jnt = current.GetComponent<SpringJoint2D>();
         rb = current.GetComponent<Rigidbody2D>();
-
+        sprRenderer = current.GetComponent<SpriteRenderer>();
+        
         float deltaY = (_settings.ScaleCurve.Evaluate(normalizedIndex - 0.5f) * _settings.JointSpacing);
         seg.transform.position = toAttachRb.gameObject.transform.position - new Vector3(0, deltaY, 0);
         jnt.connectedBody = toAttachRb;
 
-        var spr = current.GetComponent<SpriteRenderer>();
-        if (spr != null)
-            spr.color = _color;
-
+        sprRenderer.color = _color;
+        sprRenderer.sprite = _settings.VaccumSegmentSprite;
+        
         jnt.autoConfigureDistance = true;
         jnt.distance = _settings.JointDistance * _settings.ScaleCurve.Evaluate(normalizedIndex)/2;
         jnt.frequency = _settings.MaxFrequency * _settings.FrequencyCurve.Evaluate(normalizedIndex);
@@ -124,7 +118,7 @@ public class LegFactory : MonoBehaviour
         for (int i = 0; i < _rbs.Count; i++)
             _lr.SetPosition(i, _rbs[i].transform.position);
         
-        UpdateVaccumSpritePositions();
+        UpdateVaccumSpriteDirections();
     }
 
     public void MoveLegs(Vector2 input)
@@ -138,28 +132,25 @@ public class LegFactory : MonoBehaviour
         }
     }
 
-    private void UpdateVaccumSpritePositions()
+    private void UpdateVaccumSpriteDirections()
     {
-        for (int i = 0; i < _rbs.Count-1; i+=2)
+        for (int i = 0; i < _segRenderers.Count-1; i++)
         {
-            //get direction from seg1 --> seg2
-            int index = i / 2;
-            var dirVecBetween = Vector3.Normalize(_rbs[i].transform.position - _rbs[i+1].transform.position);
-            float rotZ = (Mathf.Atan2(dirVecBetween.y, dirVecBetween.x) * Mathf.Rad2Deg) - 90f;
-            _vaccumVisualizers[index].transform.rotation = Quaternion.Euler(0f, 0f, rotZ);
-            
-            //mean position
-            _vaccumVisualizers[index].transform.position = Vector3.Lerp(_rbs[i].transform.position, _rbs[i+1].transform.position, 0.5f);
+            var p1 = _segRenderers[i].transform.position;
+            var p2 = _segRenderers[i+1].transform.position;
+            var dir = p1.DirectionTo(p2);
+            float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            _segRenderers[i].transform.rotation = Quaternion.Euler(new Vector3(0f,0f,zAngle + ALIGN_VERTICALLY));
+        }
+        {
+            //for last seg
+            var p1 = _segRenderers[_segRenderers.Count-2].transform.position;
+            var p2 = _segRenderers[_segRenderers.Count-1].transform.position;
+            var dir = p1.DirectionTo(p2);
+            float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            _segRenderers[_segRenderers.Count-1].transform.rotation = Quaternion.Euler(new Vector3(0f,0f,zAngle + ALIGN_VERTICALLY));
         }
     }
-//    private void AsignBlowerDirection()
-//    {
-//        var rbLast = _rbs[_rbs.Count - 1];
-//        var rb2ndLast = _rbs[_rbs.Count - 2];
-//
-//        var legDir = Vector3.Normalize(rbLast.transform.position - rb2ndLast.transform.position);
-//        _blower.LegTipDir = legDir;
-//    }
 
     Blower MakeSegmentEndOfVaccum(GameObject gameObject)
     {
