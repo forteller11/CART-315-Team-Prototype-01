@@ -55,7 +55,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxMass: 0.65
+  MaxMass: 0.7
   MassCurve:
     serializedVersion: 2
     m_Curve:
@@ -234,7 +234,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxGravity: 1
+  MaxGravity: 0.3
   GravityCurve:
     serializedVersion: 2
     m_Curve:
@@ -248,17 +248,17 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6770809
-      value: 0.70161873
-      inSlope: -0.53391415
-      outSlope: -0.53391415
+      time: 0.43776208
+      value: 0.15872627
+      inSlope: -0.46331868
+      outSlope: -0.46331868
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.9907158
-      value: 0.47717768
+      time: 0.96337205
+      value: 0.047139227
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -268,8 +268,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  JointSpacing: 0.458
-  JointDistance: 0.442
+  JointSpacing: 1.87
+  JointDistance: 1.22
   ForceOnBody: 250
   WidthMultiplier: 0.2
   WidthCurve:
@@ -291,3 +291,6 @@ MonoBehaviour:
   BlowMult: 2
   SuckBase: 10
   SuckMult: 2
+  VaccumTipSprite: {fileID: 21300000, guid: bb89f0c172abe4342a85a0a7e8ef39f6, type: 3}
+  VaccumSegmentSprite: {fileID: 21300000, guid: dcfcb17a287b95047af8e2d93113da88,
+    type: 3}

@@ -52,10 +52,10 @@ namespace Legs
         [SerializeField]
         public AnimationCurve GravityCurve = new AnimationCurve(DEFAULT_KEYFRAME);
         
-        [Header("Joint Spacing")] [Range(0, 1)]
+        [Header("Joint Spacing")] [Range(0, 5f)]
         public float JointSpacing = 0.2f;
         
-        [Header("Joint Distance")] [Range(0, .6f)]
+        [Header("Joint Distance")] [Range(0, 5f)]
         public float JointDistance = 0.08f;
 
         [Header("Force To Apply On Body")]

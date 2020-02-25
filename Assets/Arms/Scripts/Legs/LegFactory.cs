@@ -14,8 +14,9 @@ public class LegFactory : MonoBehaviour
     [SerializeField] private SLegSettings _settings;
     [SerializeField] private GameObjectPool _pool;
     [SerializeField] private Color _color = Color.white;
+    [SerializeField] private Material _lineRendererMaterial;
     private Rigidbody2D _rigidbody2D;
-    private LineRenderer _lr;
+    private LineRenderer _lineRenderer;
 
     private List<Segment> _segs;
     private List<Rigidbody2D> _rbs;
@@ -24,19 +25,17 @@ public class LegFactory : MonoBehaviour
 
     void Start()
     {
-        if (LegLength % 2 != 0)
-            Debug.LogError("leg length must be multiple of 2!");
+        _lineRenderer = new GameObject("Leg Factory Line Renderer").AddComponent<LineRenderer>();
+        _lineRenderer.startColor = _color;
+        _lineRenderer.endColor = _color;
+        _lineRenderer.positionCount = LegLength;
+        _lineRenderer.widthCurve = _settings.ScaleCurve;
+        _lineRenderer.widthMultiplier = _settings.WidthMultiplier;
+        _lineRenderer.material = _lineRendererMaterial;
+        //set depth
+        _lineRenderer.transform.position = new Vector3(0,0f,-20f);
         
-        _lr = gameObject.AddComponent<LineRenderer>();
-        _lr.startColor = _color;
-        _lr.endColor = _color;
-        _lr.positionCount = LegLength;
-        _lr.widthCurve = _settings.ScaleCurve;
-        _lr.widthMultiplier = _settings.WidthMultiplier;
-        _lr.material = new Material(Shader.Find("Unlit/Texture"));
-        _lr.transform.position = new Vector3(0,0f,-20f);
-        
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         _segs = new List<Segment>(LegLength);
         _rbs = new List<Rigidbody2D>(LegLength);
         _segRenderers = new List<SpriteRenderer>(LegLength);
@@ -94,15 +93,15 @@ public class LegFactory : MonoBehaviour
         rb = current.GetComponent<Rigidbody2D>();
         sprRenderer = current.GetComponent<SpriteRenderer>();
         
-        float deltaY = (_settings.ScaleCurve.Evaluate(normalizedIndex - 0.5f) * _settings.JointSpacing);
-        seg.transform.position = toAttachRb.gameObject.transform.position - new Vector3(0, deltaY, 0);
+        float deltaY = (_settings.ScaleCurve.Evaluate(normalizedIndex) * _settings.JointDistance)/2;
+        seg.transform.position = toAttachRb.gameObject.transform.position + new Vector3(0, deltaY, 0);
         jnt.connectedBody = toAttachRb;
 
         sprRenderer.color = _color;
         sprRenderer.sprite = _settings.VaccumSegmentSprite;
         
-        jnt.autoConfigureDistance = true;
-        jnt.distance = _settings.JointDistance * _settings.ScaleCurve.Evaluate(normalizedIndex)/2;
+        jnt.autoConfigureDistance = false;
+        jnt.distance = _settings.JointDistance/2 * _settings.ScaleCurve.Evaluate(normalizedIndex);
         jnt.frequency = _settings.MaxFrequency * _settings.FrequencyCurve.Evaluate(normalizedIndex);
         jnt.dampingRatio = _settings.MaxDampening * _settings.DampeningCurve.Evaluate(normalizedIndex);
 
@@ -116,7 +115,7 @@ public class LegFactory : MonoBehaviour
     void Update()
     {
         for (int i = 0; i < _rbs.Count; i++)
-            _lr.SetPosition(i, _rbs[i].transform.position);
+            _lineRenderer.SetPosition(i, _rbs[i].transform.position);
         
         UpdateVaccumSpriteDirections();
     }
