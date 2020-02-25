@@ -5,8 +5,6 @@ namespace Helpers
 {
     public interface IPoolable
     {
-        void SetActiveTo(bool trueFalse);
-        Action<IPoolable> ReturnToPool { get; set; }
-        GameObject PooledGameObject { get; set; }
+        GameObjectPool Pool { get; set; }
     }
 }

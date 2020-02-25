@@ -52,8 +52,6 @@ namespace Legs
         [SerializeField]
         public AnimationCurve GravityCurve = new AnimationCurve(DEFAULT_KEYFRAME);
         
-        [Header("Joint Spacing")] [Range(0, 5f)]
-        public float JointSpacing = 0.2f;
         
         [Header("Joint Distance")] [Range(0, 5f)]
         public float JointDistance = 0.08f;
@@ -62,8 +60,7 @@ namespace Legs
         public float ForceOnBody = 1;
 
         public float WidthMultiplier = 1f;
-        public AnimationCurve WidthCurve = new AnimationCurve(DEFAULT_KEYFRAME);
-        
+
         [Header("Blow forces")]
         public float BlowBase = 1f;
         public float BlowMult = 2f;
@@ -74,6 +71,9 @@ namespace Legs
 
         [Header("Vaccum Sprites")]
         public Sprite VaccumTipSprite;
+        public Color VaccumTipColor;
         public Sprite VaccumSegmentSprite;
+        public Color VaccumSegmentColor;
+        public Color VaccumSegmentLineColor;
     }
 }

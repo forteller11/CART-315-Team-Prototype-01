@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
 
-public class Segment : MonoBehaviour, IPoolable
+public class Vaccumable : MonoBehaviour, IPoolable
 {
-    public Segment Next;
-    public Segment Previous;
-
     public GameObjectPool Pool { get; set; }
+
+    private void OnEnable()
+    {
+        //Randomize object type
+    }
 }
-
-

@@ -24,6 +24,7 @@
               <e p="Segment.cs" t="Include" />
               <e p="SLegSettings.cs" t="Include" />
             </e>
+            <e p="Vaccumable.cs" t="Include" />
           </e>
         </e>
       </e>

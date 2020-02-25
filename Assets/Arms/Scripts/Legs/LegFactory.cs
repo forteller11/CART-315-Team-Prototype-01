@@ -10,10 +10,9 @@ using UnityEngine.UIElements;
 public class LegFactory : MonoBehaviour
 {
     [Range(0, 100)] public int LegLength = 20;
-     private bool _isGrabbing; //WARNING: THIS IS ATTATCHED TO AN EVENT WHICH IS NEVER UNREJISTERED (when grabber is changed)
     [SerializeField] private SLegSettings _settings;
-    [SerializeField] private GameObjectPool _pool;
-    [SerializeField] private Color _color = Color.white;
+    [SerializeField] private GameObjectPool _legPool;
+    [SerializeField] private GameObjectPool _suckablePool;
     [SerializeField] private Material _lineRendererMaterial;
     private Rigidbody2D _rigidbody2D;
     private LineRenderer _lineRenderer;
@@ -26,12 +25,13 @@ public class LegFactory : MonoBehaviour
     void Start()
     {
         _lineRenderer = new GameObject("Leg Factory Line Renderer").AddComponent<LineRenderer>();
-        _lineRenderer.startColor = _color;
-        _lineRenderer.endColor = _color;
+        _lineRenderer.startColor = Color.white;
+        _lineRenderer.endColor = Color.white;
         _lineRenderer.positionCount = LegLength;
         _lineRenderer.widthCurve = _settings.ScaleCurve;
         _lineRenderer.widthMultiplier = _settings.WidthMultiplier;
         _lineRenderer.material = _lineRendererMaterial;
+        _lineRenderer.material.color = _settings.VaccumSegmentLineColor;
         //set depth
         _lineRenderer.transform.position = new Vector3(0,0f,-20f);
         
@@ -76,8 +76,9 @@ public class LegFactory : MonoBehaviour
 
             if (i == LegLength - 1) //make last seg new grabber
             {
-                MakeSegmentEndOfVaccum(currentSeg.gameObject);
+//                _blower = MakeSegmentEndOfVaccum(currentSeg.gameObject);
                 currentSpriteRenderer.sprite = _settings.VaccumTipSprite;
+                currentSpriteRenderer.color = _settings.VaccumTipColor;
             }
 
         }
@@ -86,7 +87,7 @@ public class LegFactory : MonoBehaviour
     void CreateNewSegment(float normalizedIndex, in Rigidbody2D toAttachRb, out Segment seg, out SpringJoint2D jnt,
         out Rigidbody2D rb, out SpriteRenderer sprRenderer)
     {
-        var current = _pool.Spawn();
+        var current = _legPool.Spawn();
 
         seg = current.GetComponent<Segment>();
         jnt = current.GetComponent<SpringJoint2D>();
@@ -97,7 +98,7 @@ public class LegFactory : MonoBehaviour
         seg.transform.position = toAttachRb.gameObject.transform.position + new Vector3(0, deltaY, 0);
         jnt.connectedBody = toAttachRb;
 
-        sprRenderer.color = _color;
+        sprRenderer.color = _settings.VaccumSegmentColor;
         sprRenderer.sprite = _settings.VaccumSegmentSprite;
         
         jnt.autoConfigureDistance = false;
@@ -131,6 +132,15 @@ public class LegFactory : MonoBehaviour
         }
     }
 
+    public void SuckVaccumables(float input)
+    {
+        //check all collisions within cone
+        //if suckable
+        //suck them
+        //var sucker = _rbs.LastElement();
+        //sucker.transform.rotation.eulerAngles.z
+    }
+
     private void UpdateVaccumSpriteDirections()
     {
         for (int i = 0; i < _segRenderers.Count-1; i++)
@@ -150,13 +160,15 @@ public class LegFactory : MonoBehaviour
             _segRenderers[_segRenderers.Count-1].transform.rotation = Quaternion.Euler(new Vector3(0f,0f,zAngle + ALIGN_VERTICALLY));
         }
     }
+    
+    
 
-    Blower MakeSegmentEndOfVaccum(GameObject gameObject)
-    {
-        var blower = gameObject.AddComponent<Blower>();
-        blower.Settings = _settings;
-        //blower.GetComponent<SpriteRenderer>().sprite = _blowerTipSprite;
-        return blower;
-    }
+//    Blower MakeSegmentEndOfVaccum(GameObject gameObject)
+//    {
+//        var blower = gameObject.AddComponent<Blower>();
+//        blower.Settings = _settings;
+//        //blower.GetComponent<SpriteRenderer>().sprite = _blowerTipSprite;
+//        return blower;
+//    }
     
 }

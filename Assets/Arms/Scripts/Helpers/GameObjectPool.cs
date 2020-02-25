@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 //Created using the following resources as reference
@@ -21,7 +22,7 @@ namespace Helpers
         private int _numberOfObjs;
 
 
-        private Queue<IPoolable> _pool;
+        private Queue<GameObject> _pool;
 
         private void Awake()
         {
@@ -29,7 +30,7 @@ namespace Helpers
                 Debug.LogWarning($"Pool \"{gameObject.name}\" transform not set to (0,0,0)! May cause positional problems!");
             
             
-            _pool = new Queue<IPoolable>(_initialCapacity);
+            _pool = new Queue<GameObject>(_initialCapacity);
             for (int i = 0; i < _initialCapacity; i++)
             {
                 _pool.Enqueue(CreateNewObject($"{_prefab.name} {++_numberOfObjs}"));
@@ -37,37 +38,39 @@ namespace Helpers
             }
         }
         
-        IPoolable CreateNewObject(in string name)
+        GameObject CreateNewObject(in string name)
         {
             var newObj = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
             newObj.name = name;
             newObj.transform.SetParent(transform);
+            newObj.SetActive(false);
             
             var poolObj = newObj.GetFirstInterface<IPoolable>();
-            if (poolObj == null) Debug.LogError("this prefab contains no IPoolable interfaces!");
-            poolObj.ReturnToPool = OnReturnToPool;
-            poolObj.PooledGameObject = newObj;
-            poolObj.SetActiveTo(false);
+            if (poolObj == null) Debug.LogError("This prefab doesn't contain an IPoolable interface!");
+            poolObj.Pool = this;
             
-            
-            return poolObj;
+            return newObj;
         }
 
         public GameObject Spawn()
         {
-            if (_pool.Count == 0)
-                _pool.Enqueue(CreateNewObject($"{_prefab.name} {++_numberOfObjs} (added)"));
+            if (_pool.Count == 0) //if need to expand pool capcity
+            {
+                _pool.Enqueue(CreateNewObject($"{_prefab.name} {++_numberOfObjs} (expanded)"));
+                Debug.LogWarning($"{gameObject.name} pool has been expanded! Consider increasing the initial capacity of the pool for optimal performance.");
+            }
             
-            var newSeg = _pool.Dequeue();
-            newSeg.SetActiveTo(true);
-            return newSeg.PooledGameObject;
+            var newObj = _pool.Dequeue();
+            newObj.SetActive(true);
+            
+            return newObj;
         }
         
-        private void OnReturnToPool(IPoolable toPool)
+        public void ReturnToPool(GameObject toPool)
         {
-            toPool.SetActiveTo(false);
+            toPool.SetActive(false);
             _pool.Enqueue(toPool);
-            toPool.PooledGameObject.transform.SetParent(transform);
+            toPool.transform.SetParent(transform);
         }
     }
 

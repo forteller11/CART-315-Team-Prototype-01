@@ -84,7 +84,8 @@ namespace Helpers
             }
             return interfaces;
         }
-        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T LastElement<T>(this List<T> list) { return list[list.Count - 1]; }
         public static T GetFirstInterface<T>(this GameObject go) where T : class
         {
             MonoBehaviour[] scripts = go.GetComponents<MonoBehaviour>();

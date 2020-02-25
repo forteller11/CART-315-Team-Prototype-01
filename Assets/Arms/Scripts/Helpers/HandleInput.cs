@@ -24,7 +24,8 @@ namespace Helpers
         private void Update()
         {
             LeftLeg.MoveLegs( _input.InGame.MoveLeftLeg.ReadValue<Vector2>());
-
+            LeftLeg.SuckVaccumables( _input.InGame.Suck.ReadValue<float>());
+            
             //_input.InGame.GrabLeft.started += context => HandleGrab(context, _leftGrabber);
             //_input.InGame.GrabRight.performed += context => HandleGrab(context, _rightGrabber);
 
