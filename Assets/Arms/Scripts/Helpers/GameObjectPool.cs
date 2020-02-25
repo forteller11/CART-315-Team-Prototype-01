@@ -22,7 +22,31 @@ namespace Helpers
         private int _numberOfObjs;
 
 
-        private Queue<GameObject> _pool;
+        private Queue<GameObject> _pool; //all inactive objects from pool
+        private List<GameObject> _allObjectsFromPool;
+        private bool _allActiveObjectsFromPoolIsDirty = true;
+        private List<GameObject> _allActiveObjectsFromPool;
+
+        public List<GameObject> AllActiveObjectsFromPool
+        {
+            get
+            {
+                if (_allActiveObjectsFromPoolIsDirty)
+                {
+                    _allActiveObjectsFromPool = new List<GameObject>();
+                    for (int i = 0; i < _allActiveObjectsFromPool.Count; i++)
+                    {
+                        if (_allActiveObjectsFromPool[i].activeSelf) 
+                            _allObjectsFromPool.Add(_allActiveObjectsFromPool[i]);
+                    }
+
+                    _allActiveObjectsFromPoolIsDirty = false;
+                }
+
+                return _allActiveObjectsFromPool;
+
+            }
+        }
 
         private void Awake()
         {
@@ -45,10 +69,14 @@ namespace Helpers
             newObj.transform.SetParent(transform);
             newObj.SetActive(false);
             
+            _allObjectsFromPool.Add(newObj);
+            
             var poolObj = newObj.GetFirstInterface<IPoolable>();
             if (poolObj == null) Debug.LogError("This prefab doesn't contain an IPoolable interface!");
             poolObj.Pool = this;
-            
+
+            _allActiveObjectsFromPoolIsDirty = true;
+                
             return newObj;
         }
 
@@ -62,12 +90,13 @@ namespace Helpers
             
             var newObj = _pool.Dequeue();
             newObj.SetActive(true);
-            
+            _allActiveObjectsFromPoolIsDirty = true;
             return newObj;
         }
         
         public void ReturnToPool(GameObject toPool)
         {
+            _allActiveObjectsFromPoolIsDirty = true;
             toPool.SetActive(false);
             _pool.Enqueue(toPool);
             toPool.transform.SetParent(transform);

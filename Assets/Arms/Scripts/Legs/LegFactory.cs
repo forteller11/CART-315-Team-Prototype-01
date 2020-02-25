@@ -135,6 +135,10 @@ public class LegFactory : MonoBehaviour
     public void SuckVaccumables(float input)
     {
         //check all collisions within cone
+        for (int i = 0; i < _suckablePool; i++)
+        {
+            
+        }
         //if suckable
         //suck them
         //var sucker = _rbs.LastElement();
