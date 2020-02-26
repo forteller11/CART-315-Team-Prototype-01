@@ -269,7 +269,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   JointDistance: 1.22
-  ForceOnBody: 400
+  ForceOnBody: 550
   WidthMultiplier: 0.4
   BlowBase: 10
   BlowMult: 2

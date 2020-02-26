@@ -166,7 +166,9 @@ public class LegFactory : MonoBehaviour
         {
             float indexNorm = (float) i / (_rbs.Count - 1);
             float forceMult = (1 - suctionAmountNorm) * _settings.OpenMaxForce * _settings.OpenForceCurve.Evaluate(indexNorm);
-            _rbs[i].AddForce(forceMult * inputMove);
+            var forceToAdd = forceMult * inputMove;
+            _rbs[i].AddForce(forceToAdd);
+            _rigidbody2D.AddForce(-forceToAdd); //so can't float/ drag yourself forward like superman
         }
         
 
