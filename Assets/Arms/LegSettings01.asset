@@ -280,7 +280,7 @@ MonoBehaviour:
   VaccumTipTint: {r: 1, g: 1, b: 1, a: 1}
   VaccumSegmentTint: {r: 0.5803922, g: 0.47450984, b: 0.45098042, a: 1}
   VaccumSegmentLineColor: {r: 0.43137258, g: 0.32941177, b: 0.3019608, a: 1}
-  SuckRadius: 6
+  SuckRadius: 10
   MaxSuck: 0.6
   MinSuck: 0
   SuckPosIncrease: 0.88

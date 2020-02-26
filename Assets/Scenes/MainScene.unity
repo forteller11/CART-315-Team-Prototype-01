@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bb3c0066f27dd478a76fc15ed5e62d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LegLength: 16
+  LegLength: 20
   _settings: {fileID: 11400000, guid: 8d7b6cccab2a3bb4ea322c2ee29d570f, type: 2}
   _legPool: {fileID: 1911253444}
   _suckablePool: {fileID: 0}

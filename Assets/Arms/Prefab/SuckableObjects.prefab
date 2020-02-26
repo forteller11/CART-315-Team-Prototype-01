@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5725690460325750756}
   - component: {fileID: 3815750414181171075}
   - component: {fileID: 6003869288417217464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SuckableObjects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
