@@ -126,6 +126,7 @@ public class LegFactory : MonoBehaviour
 
     public void MoveLegs(Vector2 inputMove, float inputSuck)
     {
+        Debug.Log(inputMove);
         float suctionAmountNorm; //amount walll is being sucked vs arm being moved, determined by input and whether close to suctionable (layer-mask) rigidbody
         
         var blower = _rbs.LastElement();

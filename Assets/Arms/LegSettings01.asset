@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71671f9fc50047af9f3758b99c4705fc, type: 3}
   m_Name: LegSettings01
   m_EditorClassIdentifier: 
-  MaxScale: {x: 3, y: 3, z: 1}
+  MaxScale: {x: 5, y: 5, z: 1}
   ScaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -234,13 +234,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxGravity: 0.3
+  MaxGravity: 1
   GravityCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1.0061349
+      time: 0.0013395355
+      value: 0.10402927
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -248,17 +248,17 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.43776208
-      value: 0.15872627
-      inSlope: -0.46331868
-      outSlope: -0.46331868
+      time: 0.35469323
+      value: 0.9981542
+      inSlope: 0
+      outSlope: 0
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.96337205
-      value: 0.047139227
+      time: 0.90622437
+      value: 0.995018
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -281,7 +281,10 @@ MonoBehaviour:
     type: 3}
   VaccumSegmentColor: {r: 0.5803922, g: 0.47450984, b: 0.45098042, a: 1}
   VaccumSegmentLineColor: {r: 0.43137258, g: 0.32941177, b: 0.3019608, a: 1}
-  SuckRadius: 4.5
-  MaxSuck: 0.75
+  SuckRadius: 6
+  MaxSuck: 0.6
   MinSuck: 0
   SuckPosIncrease: 0.88
+  VaccumeHeadRotatePercent: 0.066
+  SuctionCollisionPoints: 1
+  MaxSuctionForce: 100
