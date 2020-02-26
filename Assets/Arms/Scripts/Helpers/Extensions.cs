@@ -112,10 +112,10 @@ namespace Helpers
         /// <param name="v2"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 DirectionTo(this Vector3 v1, Vector3 v2)
-        {
-            return Vector3.Normalize(v2 - v1);
-        }
+        public static Vector3 DirectionTo(this Vector3 v1, Vector3 v2) { return Vector3.Normalize(v2 - v1); }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 DirectionTo(this Vector2 v1, Vector2 v2) { return (v2 - v1).normalized; }
 
 
     }

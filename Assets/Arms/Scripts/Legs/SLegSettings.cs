@@ -69,11 +69,13 @@ namespace Legs
         public float SuckBase = 1f;
         public float SuckMult = 2f;
 
-        [Header("Vaccum Sprites")]
-        public Sprite VaccumTipSprite;
-        public Color VaccumTipColor;
-        public Sprite VaccumSegmentSprite;
-        public Color VaccumSegmentColor;
+        [Header("Vaccum Prefabs")]
+        public GameObject VaccumTipPrefab;
+
+        [Header("Vaccum Tube Aesthetics")]
+        [FormerlySerializedAs("VaccumTipColor")]
+        public Color VaccumTipTint;
+        [FormerlySerializedAs("VaccumSegmentColor")] public Color VaccumSegmentTint;
         public Color VaccumSegmentLineColor;
 
         [Header("suck")] public float SuckRadius = 5f;

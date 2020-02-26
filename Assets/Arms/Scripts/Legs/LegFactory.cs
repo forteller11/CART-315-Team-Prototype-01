@@ -8,6 +8,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Unity.Collections;
+using UnityEngine.Assertions;
+
 //responsible for 
 public class LegFactory : MonoBehaviour
 {
@@ -19,9 +21,7 @@ public class LegFactory : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private LineRenderer _lineRenderer;
 
-    private List<Segment> _segs;
     private List<Rigidbody2D> _rbs;
-    private List<SpriteRenderer> _segRenderers;
     private const float ALIGN_VERTICALLY = -90f;
 
     void Start()
@@ -34,76 +34,62 @@ public class LegFactory : MonoBehaviour
         _lineRenderer.widthMultiplier = _settings.WidthMultiplier;
         _lineRenderer.material = _lineRendererMaterial;
         _lineRenderer.material.color = _settings.VaccumSegmentLineColor;
-        //set depth
         _lineRenderer.transform.position = new Vector3(0,0f,-20f);
         
-        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-        _segs = new List<Segment>(LegLength);
-        _rbs = new List<Rigidbody2D>(LegLength);
-        _segRenderers = new List<SpriteRenderer>(LegLength);
-
         //spawn initial leg attached to leg factory
-        Segment prevSeg;
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _rbs = new List<Rigidbody2D>(LegLength);
+        
+        var first = _legPool.Spawn();
+        first.GetComponent<SpriteRenderer>().color = _settings.VaccumSegmentTint;
+        
         SpringJoint2D prevJnt;
         Rigidbody2D prevRb;
-        SpriteRenderer prevSprite;
 
-        CreateNewSegment(0f, _rigidbody2D, out prevSeg, out prevJnt, out prevRb, out prevSprite);
+        CreateNewSegment(0f, first, _rigidbody2D, out prevJnt, out prevRb);
 
-        _segs.Add(prevSeg);
         _rbs.Add(prevRb);
-        _segRenderers.Add(prevSprite);
 
         for (int i = 1; i < LegLength; i++) //spawn rest of legs
         {
             Segment currentSeg;
             SpringJoint2D currentJnt;
             Rigidbody2D currentRb;
-            SpriteRenderer currentSpriteRenderer;
-            
+
             float normIndex = (float) i / (LegLength-1);
+            GameObject current;
+            if (i != LegLength - 1)
+            {
+                current = _legPool.Spawn();
+                current.GetComponent<SpriteRenderer>().color = _settings.VaccumSegmentTint;
+            }
+            else
+            {
+                current = Instantiate(_settings.VaccumTipPrefab);
+                current.name = $" {gameObject.name}'s Blower";
+                current.GetComponent<SpriteRenderer>().color = _settings.VaccumTipTint;
+            }
 
-            CreateNewSegment(normIndex, prevRb, out currentSeg, out currentJnt, out currentRb, out currentSpriteRenderer);
-
-            prevSeg.Next = currentSeg;
-            currentSeg.Previous = prevSeg;
+            CreateNewSegment(normIndex, current, prevRb,  out currentJnt, out currentRb);
             
-            _segs.Add(currentSeg);
             _rbs.Add(currentRb);
-            _segRenderers.Add(currentSpriteRenderer);
-            
+
             prevJnt = currentJnt;
             prevRb = currentRb;
-            prevSeg = currentSeg;
-
-            if (i == LegLength - 1) //make last seg new grabber
-            {
-//                _blower = MakeSegmentEndOfVaccum(currentSeg.gameObject);
-                _rbs[i].constraints = RigidbodyConstraints2D.FreezeRotation;
-                currentSpriteRenderer.sprite = _settings.VaccumTipSprite;
-                currentSpriteRenderer.color = _settings.VaccumTipColor;
-            }
 
         }
     }
 
-    void CreateNewSegment(float normalizedIndex, in Rigidbody2D toAttachRb, out Segment seg, out SpringJoint2D jnt,
-        out Rigidbody2D rb, out SpriteRenderer sprRenderer)
+    void CreateNewSegment(float normalizedIndex, in GameObject current, in Rigidbody2D toAttachRb, out SpringJoint2D jnt,
+        out Rigidbody2D rb)
     {
-        var current = _legPool.Spawn();
-
-        seg = current.GetComponent<Segment>();
         jnt = current.GetComponent<SpringJoint2D>();
         rb = current.GetComponent<Rigidbody2D>();
-        sprRenderer = current.GetComponent<SpriteRenderer>();
-        
+
         float deltaY = (_settings.ScaleCurve.Evaluate(normalizedIndex) * _settings.JointDistance)/2;
-        seg.transform.position = toAttachRb.gameObject.transform.position + new Vector3(0, deltaY, 0);
+        rb.position = toAttachRb.position + new Vector2(0, deltaY);
         jnt.connectedBody = toAttachRb;
 
-        sprRenderer.color = _settings.VaccumSegmentColor;
-        sprRenderer.sprite = _settings.VaccumSegmentSprite;
-        
         jnt.autoConfigureDistance = false;
         jnt.distance = _settings.JointDistance/2 * _settings.ScaleCurve.Evaluate(normalizedIndex);
         jnt.frequency = _settings.MaxFrequency * _settings.FrequencyCurve.Evaluate(normalizedIndex);
@@ -126,7 +112,6 @@ public class LegFactory : MonoBehaviour
 
     public void MoveLegs(Vector2 inputMove, float inputSuck)
     {
-        Debug.Log(inputMove);
         float suctionAmountNorm; //amount walll is being sucked vs arm being moved, determined by input and whether close to suctionable (layer-mask) rigidbody
         
         var blower = _rbs.LastElement();
@@ -200,13 +185,13 @@ public class LegFactory : MonoBehaviour
 
     private void UpdateVaccumSpriteDirections()
     {
-        for (int i = 0; i < _segRenderers.Count-1; i++)
+        for (int i = 0; i < _rbs.Count-1; i++)
         {
-            var p1 = _segRenderers[i].transform.position;
-            var p2 = _segRenderers[i+1].transform.position;
+            var p1 = _rbs[i].position;
+            var p2 = _rbs[i+1].position;
             var dir = p1.DirectionTo(p2);
             float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            _segRenderers[i].transform.rotation = Quaternion.Euler(new Vector3(0f,0f,zAngle + ALIGN_VERTICALLY));
+            _rbs[i].rotation = zAngle + ALIGN_VERTICALLY;
         }
     }
 
