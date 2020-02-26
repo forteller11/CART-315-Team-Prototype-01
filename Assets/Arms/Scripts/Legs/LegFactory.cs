@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Helpers;
 using Legs;
+using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Unity.Collections;
 //responsible for 
 public class LegFactory : MonoBehaviour
 {
@@ -122,50 +124,54 @@ public class LegFactory : MonoBehaviour
         UpdateVaccumSpriteDirections();
     }
 
-    public void MoveLegs(Vector2 input)
+    public void MoveLegs(Vector2 inputMove, float inputSuck)
     {
-        float suctionAmountNorm;
+        float suctionAmountNorm; //amount walll is being sucked vs arm being moved, determined by input and whether close to suctionable (layer-mask) rigidbody
+        
+        var blower = _rbs.LastElement();
+        List<Vector2> collisionSuctionPoints = new List<Vector2>();
         {
             int suctionCollisions = 0;
-            var blower = _rbs.LastElement();
             float zRot = (blower.rotation +90f) * Mathf.Deg2Rad;
             var fwd = new Vector2(Mathf.Cos(zRot), Mathf.Sin(zRot));
             var point = fwd*1.2f + blower.position;
             int layerMask = 0b_0010_0000_0000; //suctionable
-            float maxForceForEachSuctionPoint = (float) _settings.MaxSuctionForce / _settings.SuctionCollisionPoints;
             Collider2D suctionCollision = Physics2D.OverlapPoint(point, layerMask);
             Debug.DrawLine(blower.position, point, new Color(1f,1,0,1));
 
             if (suctionCollision != null)
             {
                 suctionCollisions++;
-                var force = (point - blower.position) * maxForceForEachSuctionPoint;
-                blower.AddForce(force);
-                Debug.DrawLine(point, suctionCollision.transform.position, new Color(.5f,.5f,1,1));
+                collisionSuctionPoints.Add(point);
             }
 
-            suctionAmountNorm = (float) suctionCollisions / _settings.SuctionCollisionPoints;
+            suctionAmountNorm = ((float) suctionCollisions / _settings.SuctionCollisionPoints) * inputSuck;
         }
+
         
-        Debug.Log(suctionAmountNorm);
+        float maxForceForEachSuctionPoint = (float) _settings.MaxSuctionForce / _settings.SuctionCollisionPoints;
+        for (int i = 0; i < collisionSuctionPoints.Count; i++)
+        {
+            var towardsSuction = collisionSuctionPoints[i] - blower.position;
+            float forceMult = suctionAmountNorm * maxForceForEachSuctionPoint;
+            var forceToApply =  towardsSuction * forceMult;
+            blower.AddForce(forceToApply);
+            Debug.DrawLine(blower.position, collisionSuctionPoints[i], new Color(.5f,.5f,1,inputSuck));
+        }
         //force to body (if suction)
-        _rigidbody2D.AddForce(_settings.ForceOnBody * suctionAmountNorm * input);
+        _rigidbody2D.AddForce(_settings.ForceOnBody * suctionAmountNorm * inputMove);
         
         //force on arms (if not suction)
         for (int i = 0; i < _rbs.Count; i++)
         {
             float indexNorm = (float) i / (_rbs.Count - 1);
             float forceMult = (1 - suctionAmountNorm) * _settings.OpenMaxForce * _settings.OpenForceCurve.Evaluate(indexNorm);
-            _rbs[i].AddForce(forceMult * input);
+            _rbs[i].AddForce(forceMult * inputMove);
         }
         
 
     }
     
-    private float  SuctionOnWallAmountNormalized()
-    {
-        return 1f;
-    }
 
     public void SuckVaccumables(float input)
     {

@@ -18,7 +18,7 @@ namespace Helpers
         
         private void Update()
         {
-            Tube.MoveLegs( _input.InGame.MoveTube.ReadValue<Vector2>());
+            Tube.MoveLegs( _input.InGame.MoveTube.ReadValue<Vector2>(), _input.InGame.Blow.ReadValue<float>());
             Tube.RotateVaccumHead(_input.InGame.RotateHead.ReadValue<Vector2>());
             Tube.SuckVaccumables( _input.InGame.Blow.ReadValue<float>());
             
