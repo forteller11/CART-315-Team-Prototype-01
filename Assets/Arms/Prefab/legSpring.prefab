@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3815750414181171075}
   - component: {fileID: 1716991042091314841}
   - component: {fileID: 6003869288417217464}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: legSpring
   m_TagString: Untagged
   m_Icon: {fileID: 0}

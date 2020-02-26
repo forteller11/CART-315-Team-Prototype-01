@@ -89,7 +89,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  OpenMaxForce: 14
+  OpenMaxForce: 10
   OpenForceCurve:
     serializedVersion: 2
     m_Curve:
@@ -132,7 +132,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ClosedMaxForce: 20
+  ClosedMaxForce: 40
   ClosedForceCurve:
     serializedVersion: 2
     m_Curve:
@@ -269,22 +269,22 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   JointDistance: 1.22
-  ForceOnBody: 250
+  ForceOnBody: 400
   WidthMultiplier: 0.4
   BlowBase: 10
   BlowMult: 2
   SuckBase: 10
   SuckMult: 2
-  VaccumTipSprite: {fileID: 21300000, guid: bb89f0c172abe4342a85a0a7e8ef39f6, type: 3}
-  VaccumTipColor: {r: 1, g: 1, b: 1, a: 1}
-  VaccumSegmentSprite: {fileID: 21300000, guid: 7c2daaf494ef69348af53fab69be8654,
+  VaccumTipPrefab: {fileID: 1007132330974232369, guid: 2dfb94dbbe1057d4b99d601b45bf3920,
     type: 3}
-  VaccumSegmentColor: {r: 0.5803922, g: 0.47450984, b: 0.45098042, a: 1}
+  VaccumTipTint: {r: 1, g: 1, b: 1, a: 1}
+  VaccumSegmentTint: {r: 0.5803922, g: 0.47450984, b: 0.45098042, a: 1}
   VaccumSegmentLineColor: {r: 0.43137258, g: 0.32941177, b: 0.3019608, a: 1}
   SuckRadius: 6
   MaxSuck: 0.6
   MinSuck: 0
   SuckPosIncrease: 0.88
   VaccumeHeadRotatePercent: 0.066
-  SuctionCollisionPoints: 1
-  MaxSuctionForce: 100
+  MaxSuctionForce: 150
+  DampeningOnSuction: 15
+  DampeningOnNoSuction: 10000

@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Unity.Collections;
 using UnityEngine.Assertions;
+using Unity.Mathematics;
 
 //responsible for 
 public class LegFactory : MonoBehaviour
@@ -23,6 +24,7 @@ public class LegFactory : MonoBehaviour
 
     private List<Rigidbody2D> _rbs;
     private const float ALIGN_VERTICALLY = -90f;
+    private Blower _blower;
 
     void Start()
     {
@@ -68,6 +70,8 @@ public class LegFactory : MonoBehaviour
                 current = Instantiate(_settings.VaccumTipPrefab);
                 current.name = $" {gameObject.name}'s Blower";
                 current.GetComponent<SpriteRenderer>().color = _settings.VaccumTipTint;
+                _blower = current.GetComponent<Blower>();
+                if (_blower == null) Debug.LogError("_blower not assigned, the prefab is probably not configured properly!");
             }
 
             CreateNewSegment(normIndex, current, prevRb,  out currentJnt, out currentRb);
@@ -112,37 +116,47 @@ public class LegFactory : MonoBehaviour
 
     public void MoveLegs(Vector2 inputMove, float inputSuck)
     {
-        float suctionAmountNorm; //amount walll is being sucked vs arm being moved, determined by input and whether close to suctionable (layer-mask) rigidbody
-        
-        var blower = _rbs.LastElement();
+
+        var blowerRB = _rbs.LastElement();
+        int suctionableLayerMask = 0b_0010_0000_0000;
+        int suctionCollisions = 0;
         List<Vector2> collisionSuctionPoints = new List<Vector2>();
+        
+        for (int i = 0; i < _blower.SuctionColliders2D.Length; i++)
         {
-            int suctionCollisions = 0;
-            float zRot = (blower.rotation +90f) * Mathf.Deg2Rad;
-            var fwd = new Vector2(Mathf.Cos(zRot), Mathf.Sin(zRot));
-            var point = fwd*1.2f + blower.position;
-            int layerMask = 0b_0010_0000_0000; //suctionable
-            Collider2D suctionCollision = Physics2D.OverlapPoint(point, layerMask);
-            Debug.DrawLine(blower.position, point, new Color(1f,1,0,1));
+            //rotate
+            float rotZ = blowerRB.rotation * Mathf.Deg2Rad;
+            float2 offset = _blower.SuctionColliders2D[i].offset;
+            float2 iBase = new float2( math.cos(rotZ), math.sin(rotZ)) * blowerRB.transform.localScale.x;
+            float2 jBase = new float2(-math.sin(rotZ), math.cos(rotZ)) * blowerRB.transform.localScale.y;
+            float2x2 rotScaleMat = new float2x2(iBase, jBase);
+            Vector2 localOffsetTransformed = math.mul(rotScaleMat, offset);
+            //transform offset by rot/scale/transform matrix....
+            var circleColliderPos = localOffsetTransformed + blowerRB.position;
+            Collider2D suctionCollision = Physics2D.OverlapCircle(circleColliderPos, _blower.SuctionColliders2D[i].radius, suctionableLayerMask);
+            Debug.DrawLine(blowerRB.position, circleColliderPos, new Color(1f,1,0,0.5f));
 
             if (suctionCollision != null)
             {
                 suctionCollisions++;
-                collisionSuctionPoints.Add(point);
+                collisionSuctionPoints.Add(circleColliderPos);
             }
-
-            suctionAmountNorm = ((float) suctionCollisions / _settings.SuctionCollisionPoints) * inputSuck;
         }
-
         
-        float maxForceForEachSuctionPoint = (float) _settings.MaxSuctionForce / _settings.SuctionCollisionPoints;
+        //where 1 == full suction, 0 == no suction
+        //amount walll is being sucked vs arm being moved, determined by input and whether close to suctionable (layer-mask) rigidbody
+        float suctionAmountNorm = ((float) suctionCollisions / _blower.SuctionColliders2D.Length) * inputSuck;
+
+        blowerRB.angularDrag = Mathf.Lerp(_settings.DampeningOnNoSuction, _settings.DampeningOnSuction, suctionAmountNorm);
+        
+        float maxForceForEachSuctionPoint = (float) _settings.MaxSuctionForce / _blower.SuctionColliders2D.Length;
         for (int i = 0; i < collisionSuctionPoints.Count; i++)
         {
-            var towardsSuction = collisionSuctionPoints[i] - blower.position;
+            var towardsSuction = collisionSuctionPoints[i] - blowerRB.position;
             float forceMult = suctionAmountNorm * maxForceForEachSuctionPoint;
             var forceToApply =  towardsSuction * forceMult;
-            blower.AddForce(forceToApply);
-            Debug.DrawLine(blower.position, collisionSuctionPoints[i], new Color(.5f,.5f,1,inputSuck));
+            blowerRB.AddForce(forceToApply);
+            Debug.DrawLine(blowerRB.position, collisionSuctionPoints[i], new Color(.5f,.5f,1,inputSuck));
         }
         //force to body (if suction)
         _rigidbody2D.AddForce(_settings.ForceOnBody * suctionAmountNorm * inputMove);

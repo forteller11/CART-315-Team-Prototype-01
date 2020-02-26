@@ -83,8 +83,8 @@ namespace Legs
         public float MinSuck = 0f;
         public float SuckPosIncrease = 1f;
         [Range(0, 1)] public float VaccumeHeadRotatePercent = 0.2f;
-
-        public int SuctionCollisionPoints = 1;
         public float MaxSuctionForce = 10f;
+        public float DampeningOnSuction = 15f;
+        public float DampeningOnNoSuction = 10_000f;
     }
 }

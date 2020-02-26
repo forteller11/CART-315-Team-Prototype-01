@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 6003869288417217464}
   - component: {fileID: 6524340625936026012}
   - component: {fileID: 395739098684670574}
-  m_Layer: 0
-  m_Name: leg
+  m_Layer: 10
+  m_Name: legHinge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
