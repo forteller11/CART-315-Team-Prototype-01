@@ -75,5 +75,9 @@ namespace Legs
         public Sprite VaccumSegmentSprite;
         public Color VaccumSegmentColor;
         public Color VaccumSegmentLineColor;
+
+        [Header("suck")] public float SuckRadius = 5f;
+        public float MaxSuck = 1f;
+        public float MinSuck = 0f;
     }
 }

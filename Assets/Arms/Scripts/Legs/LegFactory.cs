@@ -139,13 +139,15 @@ public class LegFactory : MonoBehaviour
         var sucker = _rbs.LastElement();
         int layerMask = 0b_0001_0000_0000; //8
         //int layerMask = LayerMask.NameToLayer("Vaccumable");
-        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_rbs.LastElement().position, 30f);
+        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_rbs.LastElement().position, _settings.SuckRadius);
 
         for (int i = 0; i < collider2Ds.Length; i++)
         {
             Debug.DrawLine(sucker.transform.position, collider2Ds[i].transform.position, Color.red);
-            var force = (collider2Ds[i].attachedRigidbody.position - sucker.position) * input;
-            collider2Ds[i].attachedRigidbody.AddForce(-force.ToVector3XY());
+            var forceVec = collider2Ds[i].attachedRigidbody.position - sucker.position;
+            var forceMult = ((forceVec.magnitude / _settings.SuckRadius) * (_settings.MaxSuck  - _settings.MinSuck)) + _settings.MaxSuck;
+            var forceToApply = -(input * forceMult * forceVec);
+            collider2Ds[i].attachedRigidbody.AddForce(forceToApply);
         }
         //if suckable
         //suck them
