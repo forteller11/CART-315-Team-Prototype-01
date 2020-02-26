@@ -19,7 +19,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
             ""id"": ""de3de1bf-7d2d-43d6-a067-8ec44de69679"",
             ""actions"": [
                 {
-                    ""name"": ""MoveLeftLeg"",
+                    ""name"": ""MoveTube"",
                     ""type"": ""Value"",
                     ""id"": ""a2e43d65-5d2c-453a-9aee-b14b082aa011"",
                     ""expectedControlType"": ""Axis"",
@@ -27,7 +27,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""MoveRightLeg"",
+                    ""name"": ""RotateHead"",
                     ""type"": ""Value"",
                     ""id"": ""7680a0be-5f16-404b-98f7-0c6763674d80"",
                     ""expectedControlType"": ""Axis"",
@@ -55,11 +55,11 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""b0f18489-8334-466a-8634-99cbdd675682"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""groups"": """",
-                    ""action"": ""MoveLeftLeg"",
+                    ""action"": ""MoveTube"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -70,7 +70,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveLeftLeg"",
+                    ""action"": ""MoveTube"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -81,7 +81,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveLeftLeg"",
+                    ""action"": ""MoveTube"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -92,7 +92,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveLeftLeg"",
+                    ""action"": ""MoveTube"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -103,7 +103,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveLeftLeg"",
+                    ""action"": ""MoveTube"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -123,9 +123,9 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""id"": ""77e19c0b-0d89-4eda-a9e1-4b228f7951b7"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""AxisDeadzone"",
                     ""groups"": """",
-                    ""action"": ""MoveRightLeg"",
+                    ""action"": ""RotateHead"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -136,7 +136,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveRightLeg"",
+                    ""action"": ""RotateHead"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -147,7 +147,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveRightLeg"",
+                    ""action"": ""RotateHead"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -158,7 +158,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveRightLeg"",
+                    ""action"": ""RotateHead"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -169,7 +169,7 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveRightLeg"",
+                    ""action"": ""RotateHead"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -191,8 +191,8 @@ public class @InputGrabber : IInputActionCollection, IDisposable
 }");
         // InGame
         m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
-        m_InGame_MoveLeftLeg = m_InGame.FindAction("MoveLeftLeg", throwIfNotFound: true);
-        m_InGame_MoveRightLeg = m_InGame.FindAction("MoveRightLeg", throwIfNotFound: true);
+        m_InGame_MoveTube = m_InGame.FindAction("MoveTube", throwIfNotFound: true);
+        m_InGame_RotateHead = m_InGame.FindAction("RotateHead", throwIfNotFound: true);
         m_InGame_Suck = m_InGame.FindAction("Suck", throwIfNotFound: true);
         m_InGame_Blow = m_InGame.FindAction("Blow", throwIfNotFound: true);
     }
@@ -244,16 +244,16 @@ public class @InputGrabber : IInputActionCollection, IDisposable
     // InGame
     private readonly InputActionMap m_InGame;
     private IInGameActions m_InGameActionsCallbackInterface;
-    private readonly InputAction m_InGame_MoveLeftLeg;
-    private readonly InputAction m_InGame_MoveRightLeg;
+    private readonly InputAction m_InGame_MoveTube;
+    private readonly InputAction m_InGame_RotateHead;
     private readonly InputAction m_InGame_Suck;
     private readonly InputAction m_InGame_Blow;
     public struct InGameActions
     {
         private @InputGrabber m_Wrapper;
         public InGameActions(@InputGrabber wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MoveLeftLeg => m_Wrapper.m_InGame_MoveLeftLeg;
-        public InputAction @MoveRightLeg => m_Wrapper.m_InGame_MoveRightLeg;
+        public InputAction @MoveTube => m_Wrapper.m_InGame_MoveTube;
+        public InputAction @RotateHead => m_Wrapper.m_InGame_RotateHead;
         public InputAction @Suck => m_Wrapper.m_InGame_Suck;
         public InputAction @Blow => m_Wrapper.m_InGame_Blow;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
@@ -265,12 +265,12 @@ public class @InputGrabber : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_InGameActionsCallbackInterface != null)
             {
-                @MoveLeftLeg.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveLeftLeg;
-                @MoveLeftLeg.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveLeftLeg;
-                @MoveLeftLeg.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveLeftLeg;
-                @MoveRightLeg.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveRightLeg;
-                @MoveRightLeg.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveRightLeg;
-                @MoveRightLeg.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveRightLeg;
+                @MoveTube.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveTube;
+                @MoveTube.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveTube;
+                @MoveTube.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveTube;
+                @RotateHead.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnRotateHead;
+                @RotateHead.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnRotateHead;
+                @RotateHead.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnRotateHead;
                 @Suck.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
                 @Suck.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
                 @Suck.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
@@ -281,12 +281,12 @@ public class @InputGrabber : IInputActionCollection, IDisposable
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @MoveLeftLeg.started += instance.OnMoveLeftLeg;
-                @MoveLeftLeg.performed += instance.OnMoveLeftLeg;
-                @MoveLeftLeg.canceled += instance.OnMoveLeftLeg;
-                @MoveRightLeg.started += instance.OnMoveRightLeg;
-                @MoveRightLeg.performed += instance.OnMoveRightLeg;
-                @MoveRightLeg.canceled += instance.OnMoveRightLeg;
+                @MoveTube.started += instance.OnMoveTube;
+                @MoveTube.performed += instance.OnMoveTube;
+                @MoveTube.canceled += instance.OnMoveTube;
+                @RotateHead.started += instance.OnRotateHead;
+                @RotateHead.performed += instance.OnRotateHead;
+                @RotateHead.canceled += instance.OnRotateHead;
                 @Suck.started += instance.OnSuck;
                 @Suck.performed += instance.OnSuck;
                 @Suck.canceled += instance.OnSuck;
@@ -299,8 +299,8 @@ public class @InputGrabber : IInputActionCollection, IDisposable
     public InGameActions @InGame => new InGameActions(this);
     public interface IInGameActions
     {
-        void OnMoveLeftLeg(InputAction.CallbackContext context);
-        void OnMoveRightLeg(InputAction.CallbackContext context);
+        void OnMoveTube(InputAction.CallbackContext context);
+        void OnRotateHead(InputAction.CallbackContext context);
         void OnSuck(InputAction.CallbackContext context);
         void OnBlow(InputAction.CallbackContext context);
     }

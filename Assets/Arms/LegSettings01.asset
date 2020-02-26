@@ -281,3 +281,7 @@ MonoBehaviour:
     type: 3}
   VaccumSegmentColor: {r: 0.5803922, g: 0.47450984, b: 0.45098042, a: 1}
   VaccumSegmentLineColor: {r: 0.43137258, g: 0.32941177, b: 0.3019608, a: 1}
+  SuckRadius: 4.5
+  MaxSuck: 0.75
+  MinSuck: 0
+  SuckPosIncrease: 0.88

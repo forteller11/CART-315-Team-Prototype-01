@@ -6,7 +6,7 @@
             "id": "de3de1bf-7d2d-43d6-a067-8ec44de69679",
             "actions": [
                 {
-                    "name": "MoveLeftLeg",
+                    "name": "MoveTube",
                     "type": "Value",
                     "id": "a2e43d65-5d2c-453a-9aee-b14b082aa011",
                     "expectedControlType": "Axis",
@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "MoveRightLeg",
+                    "name": "RotateHead",
                     "type": "Value",
                     "id": "7680a0be-5f16-404b-98f7-0c6763674d80",
                     "expectedControlType": "Axis",
@@ -42,11 +42,11 @@
                 {
                     "name": "2D Vector",
                     "id": "b0f18489-8334-466a-8634-99cbdd675682",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "AxisDeadzone",
                     "groups": "",
-                    "action": "MoveLeftLeg",
+                    "action": "MoveTube",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -57,7 +57,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveLeftLeg",
+                    "action": "MoveTube",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -68,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveLeftLeg",
+                    "action": "MoveTube",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -79,7 +79,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveLeftLeg",
+                    "action": "MoveTube",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -90,7 +90,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveLeftLeg",
+                    "action": "MoveTube",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -110,9 +110,9 @@
                     "id": "77e19c0b-0d89-4eda-a9e1-4b228f7951b7",
                     "path": "2DVector",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "AxisDeadzone",
                     "groups": "",
-                    "action": "MoveRightLeg",
+                    "action": "RotateHead",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -123,7 +123,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveRightLeg",
+                    "action": "RotateHead",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -134,7 +134,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveRightLeg",
+                    "action": "RotateHead",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -145,7 +145,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveRightLeg",
+                    "action": "RotateHead",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -156,7 +156,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveRightLeg",
+                    "action": "RotateHead",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },

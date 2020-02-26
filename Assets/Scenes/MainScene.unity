@@ -411,6 +411,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SuckableObjects (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6579463275666578338, guid: 1378cbf70997e8044bb5f57b2be04520,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1675,6 +1680,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SuckableObjects
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6579463275666578338, guid: 1378cbf70997e8044bb5f57b2be04520,
         type: 3}
@@ -3021,6 +3031,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SuckableObjects (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6579463275666578338, guid: 1378cbf70997e8044bb5f57b2be04520,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3095,6 +3110,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SuckableObjects (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6579463275666578338, guid: 1378cbf70997e8044bb5f57b2be04520,
         type: 3}
@@ -3530,6 +3550,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SuckableObjects (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6579463275666578338, guid: 1378cbf70997e8044bb5f57b2be04520,
         type: 3}
@@ -4368,6 +4393,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SuckableObjects (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6579463275666578338, guid: 1378cbf70997e8044bb5f57b2be04520,
         type: 3}

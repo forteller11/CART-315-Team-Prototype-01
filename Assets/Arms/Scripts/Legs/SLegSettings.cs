@@ -79,5 +79,7 @@ namespace Legs
         [Header("suck")] public float SuckRadius = 5f;
         public float MaxSuck = 1f;
         public float MinSuck = 0f;
+        public float SuckPosIncrease = 1f;
+        [Range(0, 1)] public float VaccumeHeadRotatePercent = 0.2f;
     }
 }

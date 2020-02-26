@@ -77,6 +77,7 @@ public class LegFactory : MonoBehaviour
             if (i == LegLength - 1) //make last seg new grabber
             {
 //                _blower = MakeSegmentEndOfVaccum(currentSeg.gameObject);
+                _rbs[i].constraints = RigidbodyConstraints2D.FreezeRotation;
                 currentSpriteRenderer.sprite = _settings.VaccumTipSprite;
                 currentSpriteRenderer.color = _settings.VaccumTipColor;
             }
@@ -138,16 +139,21 @@ public class LegFactory : MonoBehaviour
         //debug actives
         var sucker = _rbs.LastElement();
         int layerMask = 0b_0001_0000_0000; //8
-        //int layerMask = LayerMask.NameToLayer("Vaccumable");
-        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_rbs.LastElement().position, _settings.SuckRadius);
+        var dir =  _rbs[_rbs.Count - 1].position - _rbs[_rbs.Count - 2].position;
+        var posToAdd = dir.normalized * _settings.SuckPosIncrease;
+        var centerOfSuck = _rbs.LastElement().position + posToAdd;
+        
+        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(centerOfSuck, _settings.SuckRadius, layerMask);
 
         for (int i = 0; i < collider2Ds.Length; i++)
         {
-            Debug.DrawLine(sucker.transform.position, collider2Ds[i].transform.position, Color.red);
+            
             var forceVec = collider2Ds[i].attachedRigidbody.position - sucker.position;
-            var forceMult = ((forceVec.magnitude / _settings.SuckRadius) * (_settings.MaxSuck  - _settings.MinSuck)) + _settings.MaxSuck;
+            var forceMult = Mathf.Lerp(_settings.MinSuck, _settings.MaxSuck, forceVec.magnitude / _settings.SuckRadius);
             var forceToApply = -(input * forceMult * forceVec);
+
             collider2Ds[i].attachedRigidbody.AddForce(forceToApply);
+            Debug.DrawLine(centerOfSuck, collider2Ds[i].transform.position, new Color(1,1-forceMult/_settings.MaxSuck,0,1));
         }
         //if suckable
         //suck them
@@ -164,14 +170,18 @@ public class LegFactory : MonoBehaviour
             float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             _segRenderers[i].transform.rotation = Quaternion.Euler(new Vector3(0f,0f,zAngle + ALIGN_VERTICALLY));
         }
+    }
+
+    public void RotateVaccumHead(Vector2 dir)
+    {
+        if (dir.sqrMagnitude > 0.125f)
         {
-            //for last seg
-            var p1 = _segRenderers[_segRenderers.Count-2].transform.position;
-            var p2 = _segRenderers[_segRenderers.Count-1].transform.position;
-            var dir = p1.DirectionTo(p2);
-            float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            _segRenderers[_segRenderers.Count-1].transform.rotation = Quaternion.Euler(new Vector3(0f,0f,zAngle + ALIGN_VERTICALLY));
+            float targetZ = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) - 90f;
+            float currentZ = _rbs.LastElement().rotation;
+            float zRot = Mathf.LerpAngle(currentZ, targetZ, _settings.VaccumeHeadRotatePercent);
+            _rbs.LastElement().rotation = zRot;
         }
+
     }
     
     
