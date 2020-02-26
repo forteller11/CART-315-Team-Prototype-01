@@ -26,7 +26,6 @@ namespace Helpers
         private List<GameObject> _allObjectsFromPool;
         private bool _allActiveObjectsFromPoolIsDirty = true;
         private List<GameObject> _allActiveObjectsFromPool;
-
         public List<GameObject> AllActiveObjectsFromPool
         {
             get
@@ -55,10 +54,10 @@ namespace Helpers
             
             
             _pool = new Queue<GameObject>(_initialCapacity);
+            _allObjectsFromPool = new List<GameObject>(_initialCapacity);
             for (int i = 0; i < _initialCapacity; i++)
             {
                 _pool.Enqueue(CreateNewObject($"{_prefab.name} {++_numberOfObjs}"));
-                
             }
         }
         

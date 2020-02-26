@@ -8,13 +8,8 @@ namespace Helpers
     {
         private InputGrabber _input;
 
-        public LegFactory LeftLeg;
-        public LegFactory RightLeg;
+        public LegFactory Tube;
 
-        private Blower _leftBlower;
-        private Blower _rightBlower;
-
-        public float ThresholdUntilGrab;
 
         void Awake()
         {
@@ -23,8 +18,8 @@ namespace Helpers
         
         private void Update()
         {
-            LeftLeg.MoveLegs( _input.InGame.MoveLeftLeg.ReadValue<Vector2>());
-            LeftLeg.SuckVaccumables( _input.InGame.Suck.ReadValue<float>());
+            Tube.MoveLegs( _input.InGame.MoveLeftLeg.ReadValue<Vector2>());
+            Tube.SuckVaccumables( _input.InGame.Suck.ReadValue<float>());
             
             //_input.InGame.GrabLeft.started += context => HandleGrab(context, _leftGrabber);
             //_input.InGame.GrabRight.performed += context => HandleGrab(context, _rightGrabber);

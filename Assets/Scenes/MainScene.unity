@@ -270,8 +270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LegLength: 16
   _settings: {fileID: 11400000, guid: 8d7b6cccab2a3bb4ea322c2ee29d570f, type: 2}
-  _pool: {fileID: 1911253444}
-  _color: {r: 0.92156863, g: 0.9882353, b: 0.8784314, a: 1}
+  _legPool: {fileID: 1911253444}
+  _suckablePool: {fileID: 0}
   _lineRendererMaterial: {fileID: 2100000, guid: 2b30bd49642036f4a990fa7a9e3c91ec,
     type: 2}
 --- !u!4 &50129983
@@ -2752,7 +2752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73f8d73ad69a704aab252703a786b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialCapacity: 40
+  _initialCapacity: 60
   _prefab: {fileID: 1007132330974232369, guid: 4e5724bfb06a3c6469a4490fa8db1d8c, type: 3}
 --- !u!4 &1070074955
 Transform:
