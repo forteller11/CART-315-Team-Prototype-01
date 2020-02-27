@@ -4,7 +4,7 @@ using Legs;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Blower : MonoBehaviour
+public class Suction : MonoBehaviour
     {
         private CircleCollider2D[] _suctionColliders2D;
         public CircleCollider2D[] SuctionColliders2D
@@ -12,6 +12,8 @@ public class Blower : MonoBehaviour
             get => _suctionColliders2D;
         }
 
-        private void Awake() => _suctionColliders2D = GetComponents<CircleCollider2D>();
+        [SerializeField]
+        public BoxCollider2D _suckThresholdCollider;
 
+        private void Awake() => _suctionColliders2D = GetComponents<CircleCollider2D>();
     }

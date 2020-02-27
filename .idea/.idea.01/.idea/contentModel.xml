@@ -17,12 +17,13 @@
               <e p="IPoolable.cs" t="Include" />
             </e>
             <e p="Legs" t="Include">
-              <e p="Blower.cs" t="Include" />
               <e p="InputGrabber.cs" t="Include" />
               <e p="LegFactory.cs" t="Include" />
               <e p="NoRotation.cs" t="Include" />
               <e p="Segment.cs" t="Include" />
               <e p="SLegSettings.cs" t="Include" />
+              <e p="Suck.cs" t="Include" />
+              <e p="Suction.cs" t="Include" />
             </e>
             <e p="Vaccumable.cs" t="Include" />
           </e>
