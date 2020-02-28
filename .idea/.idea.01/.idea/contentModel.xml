@@ -22,8 +22,9 @@
               <e p="NoRotation.cs" t="Include" />
               <e p="Segment.cs" t="Include" />
               <e p="SLegSettings.cs" t="Include" />
-              <e p="Suck.cs" t="Include" />
+              <e p="SuckObjects.cs" t="Include" />
               <e p="Suction.cs" t="Include" />
+              <e p="VaccumObjects.cs" t="Include" />
             </e>
             <e p="Vaccumable.cs" t="Include" />
           </e>

@@ -22,8 +22,7 @@ namespace Helpers
             
             Tube.MoveLegs( _input.InGame.MoveTube.ReadValue<Vector2>(), suckInput);
             Tube.RotateVaccumHead(_input.InGame.RotateHead.ReadValue<Vector2>());
-            Tube.SuckVaccumables( suckInput);
-            
+
             //_input.InGame.GrabLeft.started += context => HandleGrab(context, _leftGrabber);
             //_input.InGame.GrabRight.performed += context => HandleGrab(context, _rightGrabber);
 

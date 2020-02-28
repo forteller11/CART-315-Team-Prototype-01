@@ -150,8 +150,7 @@ public class LegFactory : MonoBehaviour
         //where 1 == full suction, 0 == no suction
         //amount walll is being sucked vs arm being moved, determined by input and whether close to suctionable (layer-mask) rigidbody
         float suctionAmountNorm = ((float) suctionCollisions / _suction.SuctionColliders2D.Length) * inputSuck;
-
-        Debug.Log(suctionAmountNorm);
+        
         blowerRB.angularDrag =
             Mathf.Lerp(_settings.DampeningOnNoSuction, _settings.DampeningOnSuction, suctionAmountNorm);
 
@@ -195,29 +194,7 @@ public class LegFactory : MonoBehaviour
     }
     
 
-    public void SuckVaccumables(float input)
-    {
-        //check all collisions within cone
-        //debug actives
-        var sucker = _rbs.LastElement();
-        int layerMask = 0b_0001_0000_0000; //8
-        var dir =  _rbs[_rbs.Count - 1].position - _rbs[_rbs.Count - 2].position;
-        var posToAdd = dir.normalized * _settings.SuckPosIncrease;
-        var centerOfSuck = _rbs.LastElement().position + posToAdd;
-        
-        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(centerOfSuck, _settings.SuckRadius, layerMask);
 
-        for (int i = 0; i < collider2Ds.Length; i++)
-        {
-            
-            var forceVec = collider2Ds[i].attachedRigidbody.position - sucker.position;
-            var forceMult = Mathf.Lerp(_settings.MinSuck, _settings.MaxSuck, forceVec.magnitude / _settings.SuckRadius);
-            var forceToApply = -(input * forceMult * forceVec);
-
-            collider2Ds[i].attachedRigidbody.AddForce(forceToApply);
-            Debug.DrawLine(centerOfSuck, collider2Ds[i].transform.position, new Color(1,1-forceMult/_settings.MaxSuck,0,1));
-        }
-    }
 
     private void UpdateVaccumSpriteDirections()
     {
