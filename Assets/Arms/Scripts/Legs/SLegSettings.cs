@@ -22,17 +22,14 @@ namespace Legs
         [SerializeField]
         public AnimationCurve MassCurve = new AnimationCurve(DEFAULT_KEYFRAME);
         
-        [Header("Force When Not Grabbing")]
+        [Header("Moving arms force")]
         [SerializeField]
         [FormerlySerializedAs("MaxForce")]
         public float OpenMaxForce = 1f;
         [FormerlySerializedAs("ForceCurve")] [SerializeField]
         public AnimationCurve OpenForceCurve = new AnimationCurve(DEFAULT_KEYFRAME);
-        
-        [Header("Force On Grab")]
-        [SerializeField]
-        public float ClosedMaxForce = 1f;
-        public AnimationCurve ClosedForceCurve = new AnimationCurve(DEFAULT_KEYFRAME);
+
+        [Header("moving arms velocity")] public float MaxTubeVelocity = 1f;
         
         [Header("Spring Frequency")]
         [SerializeField]

@@ -89,7 +89,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  OpenMaxForce: 10
+  OpenMaxForce: 23
   OpenForceCurve:
     serializedVersion: 2
     m_Curve:
@@ -105,20 +105,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.3326385
       value: 0.4300859
-      inSlope: 0.60661477
-      outSlope: 0.60661477
+      inSlope: 0.48254365
+      outSlope: 0.48254365
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.67953336
-      value: 0.54512024
-      inSlope: 1.670085
-      outSlope: 1.670085
+      time: 0.8374313
+      value: 0.53700256
+      inSlope: 0.5983451
+      outSlope: 0.5983451
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.26244992
       outWeight: 0.2738428
     - serializedVersion: 3
       time: 0.99388003
@@ -132,49 +132,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ClosedMaxForce: 40
-  ClosedForceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1.0061349
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.20136073
-      value: 0.9106664
-      inSlope: -0.77349305
-      outSlope: -0.77349305
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.35954088
-      value: 0.5273249
-      inSlope: -0.9598115
-      outSlope: -0.9598115
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9895597
-      value: 0.3203733
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  MaxTubeVelocity: 15
+  MaxBodyVelocity: 1
   MaxFrequency: 18
   FrequencyCurve:
     serializedVersion: 2

@@ -98,7 +98,8 @@ public class LegFactory : MonoBehaviour
         jnt.distance = _settings.JointDistance/2 * _settings.ScaleCurve.Evaluate(normalizedIndex);
         jnt.frequency = _settings.MaxFrequency * _settings.FrequencyCurve.Evaluate(normalizedIndex);
         jnt.dampingRatio = _settings.MaxDampening * _settings.DampeningCurve.Evaluate(normalizedIndex);
-
+        //jnt.enableCollision = false;
+        
         rb.gravityScale = _settings.MaxGravity * _settings.GravityCurve.Evaluate(normalizedIndex);
         rb.mass = _settings.MaxMass * _settings.MassCurve.Evaluate(normalizedIndex);
 
@@ -112,7 +113,7 @@ public class LegFactory : MonoBehaviour
             _lineRenderer.SetPosition(i, _rbs[i].transform.position);
         
         UpdateVaccumSpriteDirections();
-
+        
     }
 
 
@@ -123,20 +124,21 @@ public class LegFactory : MonoBehaviour
         int suctionableLayerMask = 0b_0010_0000_0000;
         int suctionCollisions = 0;
         List<Vector2> collisionSuctionPoints = new List<Vector2>();
-        
+
         for (int i = 0; i < _suction.SuctionColliders2D.Length; i++)
         {
             //rotate
             float rotZ = blowerRB.rotation * Mathf.Deg2Rad;
             float2 offset = _suction.SuctionColliders2D[i].offset;
-            float2 iBase = new float2( math.cos(rotZ), math.sin(rotZ)) * blowerRB.transform.localScale.x;
+            float2 iBase = new float2(math.cos(rotZ), math.sin(rotZ)) * blowerRB.transform.localScale.x;
             float2 jBase = new float2(-math.sin(rotZ), math.cos(rotZ)) * blowerRB.transform.localScale.y;
             float2x2 rotScaleMat = new float2x2(iBase, jBase);
             Vector2 localOffsetTransformed = math.mul(rotScaleMat, offset);
             //transform offset by rot/scale/transform matrix....
             var circleColliderPos = localOffsetTransformed + blowerRB.position;
-            Collider2D suctionCollision = Physics2D.OverlapCircle(circleColliderPos, _suction.SuctionColliders2D[i].radius, suctionableLayerMask);
-            Debug.DrawLine(blowerRB.position, circleColliderPos, new Color(1f,1,0,0.5f));
+            Collider2D suctionCollision = Physics2D.OverlapCircle(circleColliderPos,
+                _suction.SuctionColliders2D[i].radius, suctionableLayerMask);
+            Debug.DrawLine(blowerRB.position, circleColliderPos, new Color(1f, 1, 0, 0.5f));
 
             if (suctionCollision != null)
             {
@@ -144,36 +146,52 @@ public class LegFactory : MonoBehaviour
                 collisionSuctionPoints.Add(circleColliderPos);
             }
         }
-        
+
         //where 1 == full suction, 0 == no suction
         //amount walll is being sucked vs arm being moved, determined by input and whether close to suctionable (layer-mask) rigidbody
         float suctionAmountNorm = ((float) suctionCollisions / _suction.SuctionColliders2D.Length) * inputSuck;
 
-        blowerRB.angularDrag = Mathf.Lerp(_settings.DampeningOnNoSuction, _settings.DampeningOnSuction, suctionAmountNorm);
-        
+        Debug.Log(suctionAmountNorm);
+        blowerRB.angularDrag =
+            Mathf.Lerp(_settings.DampeningOnNoSuction, _settings.DampeningOnSuction, suctionAmountNorm);
+
         float maxForceForEachSuctionPoint = (float) _settings.MaxSuctionForce / _suction.SuctionColliders2D.Length;
         for (int i = 0; i < collisionSuctionPoints.Count; i++)
         {
             var towardsSuction = collisionSuctionPoints[i] - blowerRB.position;
             float forceMult = suctionAmountNorm * maxForceForEachSuctionPoint;
-            var forceToApply =  towardsSuction * forceMult;
+            var forceToApply = towardsSuction * forceMult;
+
             blowerRB.AddForce(forceToApply);
-            Debug.DrawLine(blowerRB.position, collisionSuctionPoints[i], new Color(.5f,.5f,1,inputSuck));
+            Debug.DrawLine(blowerRB.position, collisionSuctionPoints[i], new Color(.5f, .5f, 1, inputSuck));
         }
-        //force to body (if suction)
-        _rigidbody2D.AddForce(_settings.ForceOnBody * suctionAmountNorm * inputMove);
-        
+
         //force on arms (if not suction)
-        for (int i = 0; i < _rbs.Count; i++)
+    for (int i = 0; i < _rbs.Count; i++)
         {
             float indexNorm = (float) i / (_rbs.Count - 1);
             float forceMult = (1 - suctionAmountNorm) * _settings.OpenMaxForce * _settings.OpenForceCurve.Evaluate(indexNorm);
-            var forceToAdd = forceMult * inputMove;
-            _rbs[i].AddForce(forceToAdd);
-            _rigidbody2D.AddForce(-forceToAdd); //so can't float/ drag yourself forward like superman
-        }
-        
+            var forceToAddUnclamped = forceMult * inputMove;
 
+            _rbs[i].AddForce(forceToAddUnclamped);
+            _rigidbody2D.AddForce(-forceToAddUnclamped); //so can't float/ drag yourself forward like superman
+            
+            //clamp max vel
+            float mag = _rbs[i].velocity.magnitude;
+            
+            //clamp current vel, not add force
+            if (mag > _settings.MaxTubeVelocity)
+            {
+                float percentageToMaxMag =  _settings.MaxTubeVelocity / mag;
+                _rbs[i].velocity *= percentageToMaxMag;
+            }
+        }
+
+        {
+            //force to body (if suction)
+            _rigidbody2D.AddForce(_settings.ForceOnBody * suctionAmountNorm * inputMove);
+
+        }
     }
     
 

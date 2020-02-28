@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 6165388709699691626}
   - component: {fileID: 37950632316528915}
   - component: {fileID: 3062316391529920404}
-  - component: {fileID: 3042780892983029134}
   - component: {fileID: 7297312715885252265}
   m_Layer: 11
   m_Name: legTip
@@ -272,7 +271,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0.021763146, y: -0.19}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -298,7 +297,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: -0.14, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,66 +311,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.09, y: 0.4702476}
   m_EdgeRadius: 0
---- !u!66 &3042780892983029134
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1007132330974232369}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 3062316391529920404}
-    m_ColliderPaths:
-    - - X: -950293
-        Y: -2851238
-      - X: -950293
-        Y: 1851238
-      - X: -1850000
-        Y: 1850945
-      - X: -1849707
-        Y: -2851238
-  - m_Collider: {fileID: 37950632316528915}
-    m_ColliderPaths:
-    - - X: 1917338
-        Y: -2850000
-      - X: 1917338
-        Y: -950000
-      - X: -1482368
-        Y: -950293
-      - X: -1482075
-        Y: -2850000
-  - m_Collider: {fileID: 7297312715885252265}
-    m_ColliderPaths:
-    - - X: 2449707
-        Y: -2851238
-      - X: 2449707
-        Y: 1851238
-      - X: 1550000
-        Y: 1850945
-      - X: 1550293
-        Y: -2851238
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 0.2449414, y: -0.2851238}
-      - {x: 0.2449414, y: 0.1851238}
-      - {x: 0.155, y: 0.1850652}
-      - {x: 0.1549881, y: -0.0950032}
-      - {x: -0.0950293, y: -0.0949953}
-      - {x: -0.0950586, y: 0.1851238}
-      - {x: -0.185, y: 0.1850652}
-      - {x: -0.1849414, y: -0.2851238}
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
 --- !u!61 &7297312715885252265
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -384,7 +323,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0.2, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
