@@ -26,6 +26,7 @@ namespace Helpers
         private List<GameObject> _allObjectsFromPool;
         private bool _allActiveObjectsFromPoolIsDirty = true;
         private List<GameObject> _allActiveObjectsFromPool;
+        //get all current active objects from pool
         public List<GameObject> AllActiveObjectsFromPool
         {
             get
@@ -51,11 +52,22 @@ namespace Helpers
         {
             if (transform.position != Vector3.zero)
                 Debug.LogWarning($"Pool \"{gameObject.name}\" transform not set to (0,0,0)! May cause positional problems!");
-            
-            
+
             _pool = new Queue<GameObject>(_initialCapacity);
             _allObjectsFromPool = new List<GameObject>(_initialCapacity);
-            for (int i = 0; i < _initialCapacity; i++)
+            
+            //incorporate all children into pool
+            if (transform.childCount > 0)
+            {
+                Debug.LogWarning($"All children of a {gameObject.name} become incorporated in the pool. \n " +
+                                 $"Make sure all children of {gameObject.name} have the same components as the connect prefab!");
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    IncorporateIntoPool(transform.GetChild(i).gameObject);
+                }
+            }
+            
+            for (int i = 0; i < _initialCapacity - transform.childCount; i++)
             {
                 _pool.Enqueue(CreateNewObject($"{_prefab.name} {++_numberOfObjs}"));
             }
@@ -71,12 +83,30 @@ namespace Helpers
             _allObjectsFromPool.Add(newObj);
             
             var poolObj = newObj.GetFirstInterface<IPoolable>();
-            if (poolObj == null) Debug.LogError("This prefab doesn't contain an IPoolable interface!");
-            poolObj.Pool = this;
+            if (poolObj == null) 
+                Debug.LogError("This prefab doesn't contain an IPoolable interface!");
+            else 
+                poolObj.Pool = this;
 
             _allActiveObjectsFromPoolIsDirty = true;
                 
             return newObj;
+        }
+        
+        void IncorporateIntoPool(GameObject toIncorporate)
+        {
+            toIncorporate.name = $"{toIncorporate.name} (incorporated) {++_numberOfObjs}";
+
+            _allObjectsFromPool.Add(toIncorporate);
+            
+            var poolObj = toIncorporate.GetFirstInterface<IPoolable>();
+            if (poolObj == null) 
+                Debug.LogError($"{toIncorporate.name} doesn't contain an IPoolable interface!");
+            else 
+                poolObj.Pool = this;
+
+            _allActiveObjectsFromPoolIsDirty = true;
+   
         }
 
         public GameObject Spawn()
