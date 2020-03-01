@@ -12,28 +12,38 @@ public class SuckObjects : MonoBehaviour
     {
         get => _centerOfSuckOffset + new Vector2(transform.position.x, transform.position.y); 
     }
-    [SerializeField] private SLegSettings _settings;
+    [SerializeField] private VaccumSettingsScriptable _settings;
     
-    private InputGrabber _input;
+    private ControlsMaster _input;
     private float _inputValue;
-    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private LayerMask _layersToSuck;
 
-    private void Awake() => _input = new InputGrabber();
+    private void Awake()
+    {
+        _input = new ControlsMaster();
+        if (_layersToSuck == 0)
+            Debug.LogWarning("Layers To Suck as not been set, which may cause problems!");
+    }
+
     private void OnEnable() => _input.Enable(); 
     private void OnDisable() => _input.Disable(); 
-    private void Update() => _inputValue = _input.InGame.Suck.ReadValue<float>();
+    private void Update() => _inputValue = _input.Vaccum.Suck.ReadValue<float>();
     
+    //check all collisions within cone
     private void OnTriggerStay2D(Collider2D other)
     {
-        //check all collisions within cone
-
+        //if not of correct layer
+        if ((1 << other.gameObject.layer) != _layersToSuck.value)
+            return;
  
-            var forceVec = other.attachedRigidbody.position - CenterOfSuck;
-            var forceMult = Mathf.Lerp(_settings.MinSuck, _settings.MaxSuck, forceVec.magnitude / _settings.SuckRadius);
-            var forceToApply = -(_inputValue * forceMult * forceVec);
+        var forceVec = other.attachedRigidbody.position - CenterOfSuck;
+        float curveIndex = 1-(forceVec.magnitude / _settings.SuckRadius);
+        var forceMult = _settings.SuckCurve.Evaluate(curveIndex) * _settings.MaxSuck;
+  
+        var forceToApply = -(_inputValue * forceMult * forceVec);
 
-            other.attachedRigidbody.AddForce(forceToApply);
-            Debug.DrawLine(CenterOfSuck, other.transform.position, new Color(1,1-forceMult/_settings.MaxSuck,0,1));
+        other.attachedRigidbody.AddForce(forceToApply);
+        Debug.DrawLine(CenterOfSuck, other.transform.position, new Color(1,curveIndex,0,1));
     }
 
     private void OnDrawGizmos()

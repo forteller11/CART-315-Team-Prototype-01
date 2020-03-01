@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
 
-public class Segment : MonoBehaviour, IPoolable
+//Vaccum Tube
+public class Tube : MonoBehaviour, IPoolable
 {
-    public Segment Next;
-    public Segment Previous;
-
     public GameObjectPool Pool { get; set; }
 }
 

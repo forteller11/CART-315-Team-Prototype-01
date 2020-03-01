@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Arms/Scripts/Legs/InputGrabber.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/ControlsMaster.inputactions'
 
 using System;
 using System.Collections;
@@ -6,16 +6,16 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @InputGrabber : IInputActionCollection, IDisposable
+public class @ControlsMaster : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @InputGrabber()
+    public @ControlsMaster()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""InputGrabber"",
+    ""name"": ""ControlsMaster"",
     ""maps"": [
         {
-            ""name"": ""InGame"",
+            ""name"": ""Vaccum"",
             ""id"": ""de3de1bf-7d2d-43d6-a067-8ec44de69679"",
             ""actions"": [
                 {
@@ -38,14 +38,6 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""name"": ""Suck"",
                     ""type"": ""Button"",
                     ""id"": ""a27d1667-8da4-4328-97b7-84e629d20ab8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Blow"",
-                    ""type"": ""Button"",
-                    ""id"": ""7e914bd0-11d2-4e50-9c1a-04677901c8c7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -293,29 +285,17 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                     ""action"": ""RotateHead"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""138bb1a8-665d-4a16-b3ed-e204154e9d08"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Blow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // InGame
-        m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
-        m_InGame_MoveTube = m_InGame.FindAction("MoveTube", throwIfNotFound: true);
-        m_InGame_RotateHead = m_InGame.FindAction("RotateHead", throwIfNotFound: true);
-        m_InGame_Suck = m_InGame.FindAction("Suck", throwIfNotFound: true);
-        m_InGame_Blow = m_InGame.FindAction("Blow", throwIfNotFound: true);
+        // Vaccum
+        m_Vaccum = asset.FindActionMap("Vaccum", throwIfNotFound: true);
+        m_Vaccum_MoveTube = m_Vaccum.FindAction("MoveTube", throwIfNotFound: true);
+        m_Vaccum_RotateHead = m_Vaccum.FindAction("RotateHead", throwIfNotFound: true);
+        m_Vaccum_Suck = m_Vaccum.FindAction("Suck", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -362,44 +342,39 @@ public class @InputGrabber : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // InGame
-    private readonly InputActionMap m_InGame;
-    private IInGameActions m_InGameActionsCallbackInterface;
-    private readonly InputAction m_InGame_MoveTube;
-    private readonly InputAction m_InGame_RotateHead;
-    private readonly InputAction m_InGame_Suck;
-    private readonly InputAction m_InGame_Blow;
-    public struct InGameActions
+    // Vaccum
+    private readonly InputActionMap m_Vaccum;
+    private IVaccumActions m_VaccumActionsCallbackInterface;
+    private readonly InputAction m_Vaccum_MoveTube;
+    private readonly InputAction m_Vaccum_RotateHead;
+    private readonly InputAction m_Vaccum_Suck;
+    public struct VaccumActions
     {
-        private @InputGrabber m_Wrapper;
-        public InGameActions(@InputGrabber wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MoveTube => m_Wrapper.m_InGame_MoveTube;
-        public InputAction @RotateHead => m_Wrapper.m_InGame_RotateHead;
-        public InputAction @Suck => m_Wrapper.m_InGame_Suck;
-        public InputAction @Blow => m_Wrapper.m_InGame_Blow;
-        public InputActionMap Get() { return m_Wrapper.m_InGame; }
+        private @ControlsMaster m_Wrapper;
+        public VaccumActions(@ControlsMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MoveTube => m_Wrapper.m_Vaccum_MoveTube;
+        public InputAction @RotateHead => m_Wrapper.m_Vaccum_RotateHead;
+        public InputAction @Suck => m_Wrapper.m_Vaccum_Suck;
+        public InputActionMap Get() { return m_Wrapper.m_Vaccum; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(InGameActions set) { return set.Get(); }
-        public void SetCallbacks(IInGameActions instance)
+        public static implicit operator InputActionMap(VaccumActions set) { return set.Get(); }
+        public void SetCallbacks(IVaccumActions instance)
         {
-            if (m_Wrapper.m_InGameActionsCallbackInterface != null)
+            if (m_Wrapper.m_VaccumActionsCallbackInterface != null)
             {
-                @MoveTube.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveTube;
-                @MoveTube.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveTube;
-                @MoveTube.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnMoveTube;
-                @RotateHead.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnRotateHead;
-                @RotateHead.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnRotateHead;
-                @RotateHead.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnRotateHead;
-                @Suck.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
-                @Suck.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
-                @Suck.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnSuck;
-                @Blow.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnBlow;
-                @Blow.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnBlow;
-                @Blow.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnBlow;
+                @MoveTube.started -= m_Wrapper.m_VaccumActionsCallbackInterface.OnMoveTube;
+                @MoveTube.performed -= m_Wrapper.m_VaccumActionsCallbackInterface.OnMoveTube;
+                @MoveTube.canceled -= m_Wrapper.m_VaccumActionsCallbackInterface.OnMoveTube;
+                @RotateHead.started -= m_Wrapper.m_VaccumActionsCallbackInterface.OnRotateHead;
+                @RotateHead.performed -= m_Wrapper.m_VaccumActionsCallbackInterface.OnRotateHead;
+                @RotateHead.canceled -= m_Wrapper.m_VaccumActionsCallbackInterface.OnRotateHead;
+                @Suck.started -= m_Wrapper.m_VaccumActionsCallbackInterface.OnSuck;
+                @Suck.performed -= m_Wrapper.m_VaccumActionsCallbackInterface.OnSuck;
+                @Suck.canceled -= m_Wrapper.m_VaccumActionsCallbackInterface.OnSuck;
             }
-            m_Wrapper.m_InGameActionsCallbackInterface = instance;
+            m_Wrapper.m_VaccumActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @MoveTube.started += instance.OnMoveTube;
@@ -411,18 +386,14 @@ public class @InputGrabber : IInputActionCollection, IDisposable
                 @Suck.started += instance.OnSuck;
                 @Suck.performed += instance.OnSuck;
                 @Suck.canceled += instance.OnSuck;
-                @Blow.started += instance.OnBlow;
-                @Blow.performed += instance.OnBlow;
-                @Blow.canceled += instance.OnBlow;
             }
         }
     }
-    public InGameActions @InGame => new InGameActions(this);
-    public interface IInGameActions
+    public VaccumActions @Vaccum => new VaccumActions(this);
+    public interface IVaccumActions
     {
         void OnMoveTube(InputAction.CallbackContext context);
         void OnRotateHead(InputAction.CallbackContext context);
         void OnSuck(InputAction.CallbackContext context);
-        void OnBlow(InputAction.CallbackContext context);
     }
 }

@@ -59,7 +59,7 @@ namespace Helpers
             //incorporate all children into pool
             if (transform.childCount > 0)
             {
-                Debug.LogWarning($"All children of a {gameObject.name} become incorporated in the pool. \n " +
+                Debug.LogWarning($"All children of a {gameObject.name} have become incorporated in the pool. \n " +
                                  $"Make sure all children of {gameObject.name} have the same components as the connect prefab!");
                 for (int i = 0; i < transform.childCount; i++)
                 {

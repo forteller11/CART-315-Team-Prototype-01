@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71671f9fc50047af9f3758b99c4705fc, type: 3}
-  m_Name: LegSettings01
+  m_Name: VaccumSettings
   m_EditorClassIdentifier: 
   MaxScale: {x: 5, y: 5, z: 1}
   ScaleCurve:
@@ -229,20 +229,47 @@ MonoBehaviour:
   JointDistance: 1.22
   ForceOnBody: 550
   WidthMultiplier: 0.4
-  BlowBase: 10
-  BlowMult: 2
-  SuckBase: 10
-  SuckMult: 2
   VaccumTipPrefab: {fileID: 1007132330974232369, guid: 2dfb94dbbe1057d4b99d601b45bf3920,
     type: 3}
   VaccumTipTint: {r: 1, g: 1, b: 1, a: 1}
   VaccumSegmentTint: {r: 0.5803922, g: 0.47450984, b: 0.45098042, a: 1}
   VaccumSegmentLineColor: {r: 0.43137258, g: 0.32941177, b: 0.3019608, a: 1}
-  SuckRadius: 10
-  MaxSuck: 0.6
-  MinSuck: 0
-  SuckPosIncrease: 0.88
+  SuckRadius: 13.51
+  SuckCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.61074424
+      outSlope: 0.61074424
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8591812
+      value: 0.52474
+      inSlope: 1.0155317
+      outSlope: 1.0155317
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.37284982
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.3749762
+      outSlope: 3.3749762
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  MaxSuck: 2
   VaccumeHeadRotatePercent: 0.066
   MaxSuctionForce: 150
-  DampeningOnSuction: 15
-  DampeningOnNoSuction: 10000
+  AngularDampeningOnSuction: 15
+  AngularDampeningOnNoSuction: 10000

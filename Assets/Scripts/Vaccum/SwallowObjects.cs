@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VaccumObjects : MonoBehaviour
+public class SwallowObjects : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -13,9 +13,5 @@ public class VaccumObjects : MonoBehaviour
 
         other.GetComponent<SpriteRenderer>().color = Color.green;
     }
-
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        Destroy(other);
-//    }
+    
 }

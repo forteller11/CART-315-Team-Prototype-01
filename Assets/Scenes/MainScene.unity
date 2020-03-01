@@ -268,11 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bb3c0066f27dd478a76fc15ed5e62d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LegLength: 20
-  _settings: {fileID: 11400000, guid: 8d7b6cccab2a3bb4ea322c2ee29d570f, type: 2}
-  _legPool: {fileID: 1911253444}
-  _suckablePool: {fileID: 0}
-  _lineRendererMaterial: {fileID: 2100000, guid: 2b30bd49642036f4a990fa7a9e3c91ec,
+  SettingsScriptable: {fileID: 11400000, guid: 8d7b6cccab2a3bb4ea322c2ee29d570f, type: 2}
+  LegPool: {fileID: 1911253444}
+  LineRendererMaterial: {fileID: 2100000, guid: 2b30bd49642036f4a990fa7a9e3c91ec,
     type: 2}
 --- !u!4 &50129983
 Transform:
@@ -560,7 +558,7 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 5725690460325750756, guid: 1378cbf70997e8044bb5f57b2be04520, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 1378cbf70997e8044bb5f57b2be04520, type: 3}
 --- !u!1001 &185234284
 PrefabInstance:
@@ -2192,7 +2190,7 @@ Transform:
   - {fileID: 50129983}
   - {fileID: 216943612}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &680440135
 GameObject:
@@ -4145,74 +4143,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 364963466}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1382618488 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
-    type: 3}
-  m_PrefabInstance: {fileID: 114314192}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1382618493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382618488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25daa1b083a31a84586da72e8ea93c1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1382618494 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6579463275666578338, guid: 1378cbf70997e8044bb5f57b2be04520,
     type: 3}
   m_PrefabInstance: {fileID: 114314192}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1426977636
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1426977638}
-  - component: {fileID: 1426977637}
-  m_Layer: 0
-  m_Name: Input Handler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1426977637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426977636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a154c2e43e46d19494222e20faea3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tube: {fileID: 50129982}
---- !u!4 &1426977638
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426977636}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.304052, y: 8.337479, z: -119.62274}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1438319921 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3850363052353274296, guid: df25ee97030375848a2d767918ec7336,
@@ -4562,7 +4498,7 @@ RectTransform:
   m_Children:
   - {fileID: 993281046}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5436,7 +5372,7 @@ GameObject:
   - component: {fileID: 1911253445}
   - component: {fileID: 1911253444}
   m_Layer: 0
-  m_Name: Vaccum Leg Pool
+  m_Name: Vaccum Tube Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5454,7 +5390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73f8d73ad69a704aab252703a786b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialCapacity: 20
+  _initialCapacity: 37
   _prefab: {fileID: 1007132330974232369, guid: 4e5724bfb06a3c6469a4490fa8db1d8c, type: 3}
 --- !u!4 &1911253445
 Transform:
@@ -5678,24 +5614,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4607b82f962d5de44b527a7ffbab7b9d, type: 3}
---- !u!1 &1949329199 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
-    type: 3}
-  m_PrefabInstance: {fileID: 1508953519}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1949329204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949329199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25daa1b083a31a84586da72e8ea93c1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1949329205 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6579463275666578338, guid: 1378cbf70997e8044bb5f57b2be04520,

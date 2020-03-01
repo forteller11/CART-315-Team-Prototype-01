@@ -1,8 +1,8 @@
 {
-    "name": "InputGrabber",
+    "name": "MasterInput",
     "maps": [
         {
-            "name": "InGame",
+            "name": "Vaccum",
             "id": "de3de1bf-7d2d-43d6-a067-8ec44de69679",
             "actions": [
                 {
@@ -25,14 +25,6 @@
                     "name": "Suck",
                     "type": "Button",
                     "id": "a27d1667-8da4-4328-97b7-84e629d20ab8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Blow",
-                    "type": "Button",
-                    "id": "7e914bd0-11d2-4e50-9c1a-04677901c8c7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -280,17 +272,6 @@
                     "action": "RotateHead",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "138bb1a8-665d-4a16-b3ed-e204154e9d08",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Blow",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }

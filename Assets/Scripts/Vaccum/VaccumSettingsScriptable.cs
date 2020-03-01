@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 
 namespace Legs
 {
-    [CreateAssetMenu(fileName = "Leg Settings", menuName = "ScriptableObjects/Leg Settings", order = 1)]
-    public class SLegSettings : ScriptableObject
+    [CreateAssetMenu(fileName = "Vaccum Settings", menuName = "ScriptableObjects/Vaccum Settings", order = 1)]
+    public class VaccumSettingsScriptable : ScriptableObject
     {
         private static Keyframe DEFAULT_KEYFRAME = new Keyframe(0.5f, 1f);
         
@@ -29,7 +29,7 @@ namespace Legs
         [FormerlySerializedAs("ForceCurve")] [SerializeField]
         public AnimationCurve OpenForceCurve = new AnimationCurve(DEFAULT_KEYFRAME);
 
-        [Header("moving arms velocity")] public float MaxTubeVelocity = 1f;
+        [Header("Moving Arms velocity")] public float MaxTubeVelocity = 1f;
         
         [Header("Spring Frequency")]
         [SerializeField]
@@ -49,23 +49,14 @@ namespace Legs
         [SerializeField]
         public AnimationCurve GravityCurve = new AnimationCurve(DEFAULT_KEYFRAME);
         
-        
         [Header("Joint Distance")] [Range(0, 5f)]
         public float JointDistance = 0.08f;
 
-        [Header("Force To Apply On Body")]
+        [Header("Force To Apply On Body On Suction")]
         public float ForceOnBody = 1;
 
         public float WidthMultiplier = 1f;
-
-        [Header("Blow forces")]
-        public float BlowBase = 1f;
-        public float BlowMult = 2f;
         
-        [Header("Suck forces")]
-        public float SuckBase = 1f;
-        public float SuckMult = 2f;
-
         [Header("Vaccum Prefabs")]
         public GameObject VaccumTipPrefab;
 
@@ -75,13 +66,15 @@ namespace Legs
         [FormerlySerializedAs("VaccumSegmentColor")] public Color VaccumSegmentTint;
         public Color VaccumSegmentLineColor;
 
-        [Header("suck")] public float SuckRadius = 5f;
+        [Header("Sucking/Vaccuming of object")] 
+        public float SuckRadius = 5f;
+        public AnimationCurve SuckCurve = new AnimationCurve(DEFAULT_KEYFRAME);
         public float MaxSuck = 1f;
-        public float MinSuck = 0f;
-        public float SuckPosIncrease = 1f;
+
+        [Header("Suction to walls")] 
         [Range(0, 1)] public float VaccumeHeadRotatePercent = 0.2f;
         public float MaxSuctionForce = 10f;
-        public float DampeningOnSuction = 15f;
-        public float DampeningOnNoSuction = 10_000f;
+        public float AngularDampeningOnSuction = 15f;
+        public float AngularDampeningOnNoSuction = 10_000f;
     }
 }
