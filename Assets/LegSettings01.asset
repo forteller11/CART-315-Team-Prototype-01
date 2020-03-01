@@ -133,7 +133,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   MaxTubeVelocity: 15
-  MaxBodyVelocity: 1
   MaxFrequency: 18
   FrequencyCurve:
     serializedVersion: 2
