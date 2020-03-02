@@ -685,7 +685,7 @@ GameObject:
   - component: {fileID: 216943609}
   - component: {fileID: 216943611}
   - component: {fileID: 216943613}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: VaccumBody
   m_TagString: UnGrabbable
   m_Icon: {fileID: 0}

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Helpers;
 using Legs;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SuckObjects : MonoBehaviour
 {
     [SerializeField] private Vector2 _centerOfSuckOffset;
+    [SerializeField] private LayerMask LayersThatCanBlockSuck;
 
     private Vector2 CenterOfSuck
     {
@@ -35,15 +38,29 @@ public class SuckObjects : MonoBehaviour
         //if not of correct layer
         if ((1 << other.gameObject.layer) != _layersToSuck.value)
             return;
- 
-        var forceVec = other.attachedRigidbody.position - CenterOfSuck;
-        float curveIndex = 1-(forceVec.magnitude / _settings.SuckRadius);
-        var forceMult = _settings.SuckCurve.Evaluate(curveIndex) * _settings.MaxSuck;
-  
-        var forceToApply = -(_inputValue * forceMult * forceVec);
+        if (_inputValue == 0)
+            return;
+        
+        var forceDir = other.attachedRigidbody.position - CenterOfSuck;
+        var forceDirMag = forceDir.magnitude;
+        
+        //check if something is inbetween object and sucker, if so, don't suck'
+        var posOrigin = transform.position.To2DIgnoreZ();
+        var dir = posOrigin.DirectionTo(other.attachedRigidbody.position);
+        RaycastHit2D hit = Physics2D.Raycast(posOrigin, dir, distance: forceDirMag, LayersThatCanBlockSuck.value);
+        if (hit.collider == null)
+        {
 
-        other.attachedRigidbody.AddForce(forceToApply);
-        Debug.DrawLine(CenterOfSuck, other.transform.position, new Color(1,curveIndex,0,1));
+            float curveIndex = 1 - (forceDirMag / _settings.SuckRadius);
+            var forceMult = _settings.SuckCurve.Evaluate(curveIndex) * _settings.MaxSuck;
+
+            var forceToApply = -(_inputValue * forceMult * forceDir);
+
+            other.attachedRigidbody.AddForce(forceToApply);
+            Debug.DrawLine(CenterOfSuck, other.transform.position, new Color(1, 1, 0, curveIndex/2f + 0.5f));
+        }
+        else 
+            Debug.DrawLine(posOrigin, hit.point, Color.red);
     }
 
     private void OnDrawGizmos()

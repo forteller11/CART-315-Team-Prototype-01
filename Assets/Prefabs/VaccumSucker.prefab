@@ -426,6 +426,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _centerOfSuckOffset: {x: 0, y: 0}
+  LayersThatCanBlockSuck:
+    serializedVersion: 2
+    m_Bits: 8704
   _settings: {fileID: 11400000, guid: 8d7b6cccab2a3bb4ea322c2ee29d570f, type: 2}
   _layersToSuck:
     serializedVersion: 2
@@ -476,6 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WasteSpawnOffset: {x: 0, y: 0}
+  WasteRotateOnVaccumAmount: 1
 --- !u!61 &8560278150987277520
 BoxCollider2D:
   m_ObjectHideFlags: 0

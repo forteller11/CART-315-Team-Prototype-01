@@ -277,7 +277,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxSuck: 0.6
+  MaxSuck: 1
   VaccumeHeadRotatePercent: 0.066
   MaxSuctionForce: 150
   AngularDampeningOnSuction: 15

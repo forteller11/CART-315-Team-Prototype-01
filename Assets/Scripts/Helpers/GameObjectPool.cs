@@ -53,8 +53,8 @@ namespace Helpers
 
         private void Awake()
         {
-            if (transform.position != Vector3.zero)
-                Debug.LogWarning($"Pool \"{gameObject.name}\" transform not set to (0,0,0)! May cause positional problems!");
+//            if (transform.position != Vector3.zero)
+//                Debug.LogWarning($"Pool \"{gameObject.name}\" transform not set to (0,0,0)! May cause positional problems!");
 
             _pool = new Queue<GameObject>(_initialCapacity);
             _allObjectsFromPool = new List<GameObject>(_initialCapacity);
