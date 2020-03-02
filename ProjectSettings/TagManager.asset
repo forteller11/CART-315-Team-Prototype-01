@@ -18,7 +18,7 @@ TagManager:
   - Suctionable
   - Tubes
   - VaccumTip
-  - 
+  - InsideVaccum
   - 
   - 
   - 
@@ -39,6 +39,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BehindVaccum
+    uniqueID: 2519767891
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: VaccumTip
+    uniqueID: 3905546189
     locked: 0

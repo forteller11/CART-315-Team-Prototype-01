@@ -4,9 +4,18 @@ using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
 
-public class Vaccumable : MonoBehaviour, IPoolable
+public class Suckable : MonoBehaviour, IPoolable
 {
     public GameObjectPool Pool { get; set; }
+    public enum SuckableType
+    {
+        NotCombinable,
+        Energy,
+        Liquid,
+        Clothes
+    }
+
+    public SuckableType Type = SuckableType.NotCombinable;
 
     private void OnEnable()
     {

@@ -116,6 +116,9 @@ namespace Helpers
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 DirectionTo(this Vector2 v1, Vector2 v2) { return (v2 - v1).normalized; }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 To2DIgnoreZ(this Vector3 v) { return new Vector2(v.x, v.y); }
 
 
     }
