@@ -22,6 +22,9 @@
           </e>
           <e p="Vaccum" t="Include">
             <e p="NoRotation.cs" t="Include" />
+            <e p="PowerUps" t="Include">
+              <e p="BlowPowerUp.cs" t="Include" />
+            </e>
             <e p="SuckObjects.cs" t="Include" />
             <e p="Suction.cs" t="Include" />
             <e p="Swallowable.cs" t="Include" />

@@ -33,6 +33,7 @@ public class SwallowObjects : MonoBehaviour
             return;
         
         swallowed.Rigidbody2D.position = VaccumBodySingleton.Instance.transform.position.To2DIgnoreZ();
+        swallowed.BeginCheckingForCombinations = true;
         swallowed.gameObject.layer = LayerMask.NameToLayer("InsideVaccum");
         swallowed.GetComponent<SpriteRenderer>().sortingLayerID = _sortingLayerInsideVaccum;
         swallowed.Rigidbody2D.mass *= RelativeMassChangeOnSwallow;
