@@ -22,7 +22,6 @@
           </e>
           <e p="Vaccum" t="Include">
             <e p="NoRotation.cs" t="Include" />
-            <e p="SuckableSpritesScriptable.cs" t="Include" />
             <e p="SuckObjects.cs" t="Include" />
             <e p="Suction.cs" t="Include" />
             <e p="Swallowable.cs" t="Include" />

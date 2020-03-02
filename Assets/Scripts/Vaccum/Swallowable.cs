@@ -15,7 +15,7 @@ public class Swallowable : MonoBehaviour, IPoolable
         Clothes
     }
 
-    public Rigidbody2D Rigidbody2D;
+    [HideInInspector] public Rigidbody2D Rigidbody2D;
 
     private void Awake() => Rigidbody2D = GetComponent<Rigidbody2D>();
 

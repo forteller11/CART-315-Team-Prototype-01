@@ -9,6 +9,8 @@ using Object = System.Object;
 public class SwallowObjects : MonoBehaviour
 {
     [SerializeField] private float WasteRotateOnVaccumAmount = 1f;
+    [SerializeField] private float RelativeScaleChangeOnSwallow = 0.5f;
+    [SerializeField] private float RelativeMassChangeOnSwallow = 0.1f;
     
     private int _sortingLayerInsideVaccum;
     private ControlsMaster _input;
@@ -33,6 +35,8 @@ public class SwallowObjects : MonoBehaviour
         swallowed.Rigidbody2D.position = VaccumBodySingleton.Instance.transform.position.To2DIgnoreZ();
         swallowed.gameObject.layer = LayerMask.NameToLayer("InsideVaccum");
         swallowed.GetComponent<SpriteRenderer>().sortingLayerID = _sortingLayerInsideVaccum;
+        swallowed.Rigidbody2D.mass *= RelativeMassChangeOnSwallow;
+        swallowed.transform.localScale *= RelativeScaleChangeOnSwallow;
         _swallowedObjects.Add(swallowed);
 
     }
