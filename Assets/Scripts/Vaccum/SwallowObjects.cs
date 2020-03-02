@@ -9,12 +9,13 @@ using Object = System.Object;
 public class SwallowObjects : MonoBehaviour
 {
     [SerializeField] private Vector2 WasteSpawnOffset;
-
+    [SerializeField] private float WasteRotateOnVaccumAmount = 1f;
+    
     private GameObjectPool _wastePool;
     private ControlsMaster _input;
     private float _inputValue;
     private List<SwallowedObject> _swallowedObjects = new List<SwallowedObject>();
-    private List<GameObject> _wastes = new List<GameObject>(2);
+    private List<Rigidbody2D> _wastes = new List<Rigidbody2D>(2);
 
     private void Awake()
     {
@@ -28,13 +29,13 @@ public class SwallowObjects : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         var suckable = other.GetComponent<Suckable>();
-        if ((suckable == null) || (_inputValue <= 0))
+        if ((suckable == null) || (_inputValue == 0))
             return;
         
         _swallowedObjects.Add(new SwallowedObject(suckable));
         var newWasteRB = _wastePool.Spawn().GetComponent<Rigidbody2D>();
         newWasteRB.position = VaccumBodySingleton.Instance.transform.position.To2DIgnoreZ() + WasteSpawnOffset;
-        _wastes.Add(newWasteRB.gameObject);
+        _wastes.Add(newWasteRB);
         
         suckable.Pool.ReturnToPool(suckable.gameObject);
     }
@@ -43,14 +44,18 @@ public class SwallowObjects : MonoBehaviour
     {
         _inputValue = _input.Vaccum.Suck.ReadValue<float>();
 
-//        if (_inputValue == 0f)
-//        {
-//            for (int i = 0; i < _swallowedObjects.Count; i++)
-//            {
-//                if (_swallowedObjects[i].TimeSucked
-//            }
-//        }
-        //check if any history should be removed
+        if (_inputValue > 0f)
+        {
+            Vector2 centerPos = VaccumBodySingleton.Instance.transform.position.To2DIgnoreZ();
+            for (int i = 0; i < _wastes.Count; i++)
+            {
+                var toRigidBody = centerPos.DirectionTo(_wastes[i].position);
+                var forceDir = new Vector2(-toRigidBody.y, toRigidBody.x); //clockwise
+                var forceMult = _inputValue * WasteRotateOnVaccumAmount;
+                var force = forceDir * forceMult;
+                _wastes[i].AddForce(force);
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()

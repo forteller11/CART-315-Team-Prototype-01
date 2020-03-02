@@ -18,7 +18,7 @@ namespace Helpers
         private int _initialCapacity = 40;
         [SerializeField]
         private GameObject _prefab;
-
+        [Tooltip("All children of this pool will become incorporated into the pool. Make sure all children have the same components as the connect prefab!")]
         [SerializeField] private bool ConsiderChildrenAsPartOfPool = true;
 
         
@@ -62,8 +62,7 @@ namespace Helpers
             //incorporate all children into pool
             if ( (transform.childCount > 0) && (ConsiderChildrenAsPartOfPool))
             {
-                Debug.LogWarning($"All children of a {gameObject.name} have become incorporated in the pool. \n " +
-                                 $"Make sure all children of {gameObject.name} have the same components as the connect prefab!");
+                
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     IncorporateIntoPool(transform.GetChild(i).gameObject);
@@ -85,7 +84,7 @@ namespace Helpers
         {
             var newObj = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
             newObj.name = name;
-            newObj.transform.SetParent(transform);
+            //newObj.transform.SetParent(transform);
             newObj.SetActive(false);
             
             _allObjectsFromPool.Add(newObj);
@@ -136,7 +135,7 @@ namespace Helpers
             _allActiveObjectsFromPoolIsDirty = true;
             toPool.SetActive(false);
             _pool.Enqueue(toPool);
-            toPool.transform.SetParent(transform);
+            //toPool.transform.SetParent(transform);
         }
     }
 
