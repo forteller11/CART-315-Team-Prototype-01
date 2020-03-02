@@ -33,13 +33,13 @@ public class Swallowable : MonoBehaviour, IPoolable
         if (otherSwallowable == null)
             return;
 
-        var combinedType = otherSwallowable.Type & Type;
+        var combinedType = otherSwallowable.Type | Type;
 
         //call methods in body approrpaite power ups
         switch (combinedType)
         {
-            case SuckableType.Liquid & SuckableType.Energy:
-                VaccumBodySingleton.Instance.GetComponent<Rigidbody2D>().position += new Vector2(0,1);
+            case SuckableType.Liquid | SuckableType.Energy:
+                VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color = Color.red;
                 this.Pool.ReturnToPool(this.gameObject);
                 otherSwallowable.Pool.ReturnToPool(otherSwallowable.gameObject);
                 

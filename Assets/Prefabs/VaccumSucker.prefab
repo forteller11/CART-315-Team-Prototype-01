@@ -477,8 +477,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c354f2e67402f1e4f877044b24acd9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WasteSpawnOffset: {x: 0, y: 0}
-  WasteRotateOnVaccumAmount: 1
+  WasteRotateOnVaccumAmount: 0.1
+  RelativeScaleChangeOnSwallow: 1
+  RelativeMassChangeOnSwallow: 0.1
 --- !u!61 &8560278150987277520
 BoxCollider2D:
   m_ObjectHideFlags: 0

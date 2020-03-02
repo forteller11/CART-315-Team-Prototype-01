@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6579463275666578338}
+  - component: {fileID: 8873905410849216318}
   - component: {fileID: 260694006743200420}
   - component: {fileID: 3815750414181171075}
   - component: {fileID: 6003869288417217464}
-  - component: {fileID: 8873905410849216318}
   - component: {fileID: 8867055877518302759}
   m_Layer: 8
   m_Name: SuckableObjects
@@ -35,6 +35,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8873905410849216318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007132330974232369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25daa1b083a31a84586da72e8ea93c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  BeginCheckingForCombinations: 0
+  Rigidbody2D: {fileID: 0}
 --- !u!212 &260694006743200420
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -122,21 +137,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.09
---- !u!114 &8873905410849216318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1007132330974232369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25daa1b083a31a84586da72e8ea93c1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 0
-  BeginCheckingForCombinations: 0
-  Rigidbody2D: {fileID: 0}
 --- !u!58 &8867055877518302759
 CircleCollider2D:
   m_ObjectHideFlags: 0
