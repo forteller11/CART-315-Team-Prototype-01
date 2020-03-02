@@ -4,21 +4,20 @@ using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
 
-public class Suckable : MonoBehaviour, IPoolable
+public class Swallowable : MonoBehaviour, IPoolable
 {
     public GameObjectPool Pool { get; set; }
     public enum SuckableType
     {
-        NotCombinable,
+        NonCombinable,
         Energy,
         Liquid,
         Clothes
     }
 
-    public SuckableType Type = SuckableType.NotCombinable;
+    public Rigidbody2D Rigidbody2D;
 
-    private void OnEnable()
-    {
-        //Randomize object type
-    }
+    private void Awake() => Rigidbody2D = GetComponent<Rigidbody2D>();
+
+    public SuckableType Type = SuckableType.NonCombinable;
 }

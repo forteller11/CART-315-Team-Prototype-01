@@ -241,15 +241,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.47996974
-      outSlope: 0.47996974
+      inSlope: 0.36397535
+      outSlope: 0.36397535
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.40735823
-      value: 0.19551963
+      time: 0.46976668
+      value: 0.1709835
       inSlope: 0.4714662
       outSlope: 0.4714662
       tangentMode: 0
@@ -257,8 +257,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.8796711
-      value: 0.47660804
+      time: 0.7548542
+      value: 0.4520719
       inSlope: 0.7904898
       outSlope: 0.7904898
       tangentMode: 0
@@ -268,8 +268,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 4.349678
-      outSlope: 4.349678
+      inSlope: 2.235111
+      outSlope: 2.235111
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -277,7 +277,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxSuck: 1
+  MaxSuck: 1.5
   VaccumeHeadRotatePercent: 0.066
   MaxSuctionForce: 150
   AngularDampeningOnSuction: 15

@@ -444,7 +444,6 @@ GameObject:
   - component: {fileID: 993948355907236018}
   - component: {fileID: 1290723359328381640}
   - component: {fileID: 8560278150987277520}
-  - component: {fileID: 2445007403545113711}
   m_Layer: 11
   m_Name: VaccumObjects
   m_TagString: Untagged
@@ -506,18 +505,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.31, y: 0.24}
   m_EdgeRadius: 0
---- !u!114 &2445007403545113711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3695744465794486149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d73f8d73ad69a704aab252703a786b10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initialCapacity: 2
-  _prefab: {fileID: 664804363670096217, guid: ace3bf4966353ce40a318bb9087f511f, type: 3}
-  ConsiderChildrenAsPartOfPool: 0
