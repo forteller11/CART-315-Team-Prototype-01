@@ -1,5 +1,5 @@
 {
-    "name": "MasterInput",
+    "name": "ControlsMaster",
     "maps": [
         {
             "name": "Vaccum",
@@ -156,6 +156,17 @@
                     "name": "",
                     "id": "0e8d5d9b-46b7-4453-854e-f436c2fffc9c",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Suck",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b390b092-652c-4663-855f-16a321b5da81",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

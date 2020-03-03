@@ -132,7 +132,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxTubeVelocity: 15
+  MaxTubeVelocity: 8
   MaxFrequency: 18
   FrequencyCurve:
     serializedVersion: 2
@@ -228,12 +228,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   JointDistance: 1.22
   ForceOnBody: 550
-  WidthMultiplier: 0.4
+  WidthMultiplier: 0.7
   VaccumTipPrefab: {fileID: 1007132330974232369, guid: 2dfb94dbbe1057d4b99d601b45bf3920,
     type: 3}
   VaccumTipTint: {r: 1, g: 1, b: 1, a: 1}
-  VaccumSegmentTint: {r: 0.5803922, g: 0.47450984, b: 0.45098042, a: 1}
-  VaccumSegmentLineColor: {r: 0.43137258, g: 0.32941177, b: 0.3019608, a: 1}
+  VaccumSegmentTint: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  VaccumSegmentLineColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   SuckRadius: 13.51
   SuckCurve:
     serializedVersion: 2

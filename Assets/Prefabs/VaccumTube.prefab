@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1716991042091314841}
   - component: {fileID: 6003869288417217464}
   m_Layer: 10
-  m_Name: legSpring
+  m_Name: VaccumTube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,10 +71,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1775199405
+  m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7c2daaf494ef69348af53fab69be8654, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0f5d4d9da64b2045a3c5af4822f68f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,8 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca610e0a5dcd914aa4caea4ff8b1b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Next: {fileID: 0}
-  Previous: {fileID: 0}
 --- !u!50 &3815750414181171075
 Rigidbody2D:
   serializedVersion: 4
