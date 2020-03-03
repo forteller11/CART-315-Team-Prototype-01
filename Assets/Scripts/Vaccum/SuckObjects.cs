@@ -10,10 +10,9 @@ public class SuckObjects : MonoBehaviour
 {
     public float PowerUpSuckMultiplier = 1f;
     [SerializeField] private LayerMask LayersThatCanBlockSuck;
-
-
     [SerializeField] private VaccumSettingsScriptable _settings;
     
+    private ParticleSystem _particleSystem;
     private ControlsMaster _input;
     private float _inputValue;
     [SerializeField] private LayerMask _layersToSuck;
@@ -23,11 +22,26 @@ public class SuckObjects : MonoBehaviour
         _input = new ControlsMaster();
         if (_layersToSuck == 0)
             Debug.LogWarning("Layers To Suck as not been set, which may cause problems!");
+
+        _particleSystem = GetComponent<ParticleSystem>();
+        _particleSystem.Stop();
     }
 
     private void OnEnable() => _input.Enable(); 
-    private void OnDisable() => _input.Disable(); 
-    private void Update() => _inputValue = _input.Vaccum.Suck.ReadValue<float>();
+    private void OnDisable() => _input.Disable();
+
+    private void Update()
+    {
+        _inputValue = _input.Vaccum.Suck.ReadValue<float>();
+
+        if (_inputValue > 0)
+        {
+            if (_particleSystem.isPlaying == false)
+                _particleSystem.Play();
+        }
+        else 
+            _particleSystem.Stop();
+    } 
     
     //check all collisions within cone
     private void OnTriggerStay2D(Collider2D other)
@@ -37,7 +51,7 @@ public class SuckObjects : MonoBehaviour
             return;
         if (_inputValue == 0)
             return;
-        
+
         var forceDir = other.attachedRigidbody.position - transform.position.To2DIgnoreZ();
         var forceDirMag = forceDir.magnitude;
         
