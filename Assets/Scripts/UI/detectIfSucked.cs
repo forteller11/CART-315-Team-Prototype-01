@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class detectIfSucked : MonoBehaviour
 {
-    GameObject suckableObjects;
-    Swallowable swallowablesScript;
+    GameObject combineManager;
+    Legs.CombineManager combineManagerScript;
 
     public bool obj0Sucked;
     public bool obj1Sucked;
@@ -18,6 +18,7 @@ public class detectIfSucked : MonoBehaviour
     private Image obj0;
     private Image obj1;
     private Image obj2;
+    private Image obj2alts;
     private Image obj3;
     private Image obj4;
     private Image obj5;
@@ -25,8 +26,8 @@ public class detectIfSucked : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        suckableObjects = GameObject.Find("Suckable Objects Pool");
-        swallowablesScript = suckableObjects.GetComponent<Swallowable>();
+        combineManager = GameObject.Find("CombineManager");
+        combineManagerScript = combineManager.GetComponent<Legs.CombineManager>();
 
         obj0Sucked = false;
         obj1Sucked = false;
@@ -38,18 +39,20 @@ public class detectIfSucked : MonoBehaviour
         obj0 = GameObject.Find("obj 0").GetComponent<Image>();
         obj1 = GameObject.Find("obj 1").GetComponent<Image>();
         obj2 = GameObject.Find("obj 2").GetComponent<Image>();
-        obj3 = GameObject.Find("obj 3").GetComponent<Image>();
-        obj4 = GameObject.Find("obj 4").GetComponent<Image>();
-        obj5 = GameObject.Find("obj 5").GetComponent<Image>();
+        obj2alts = GameObject.Find("obj 2 alts").GetComponent<Image>();
+        //obj3 = GameObject.Find("obj 3").GetComponent<Image>();
+        //obj4 = GameObject.Find("obj 4").GetComponent<Image>();
+        //obj5 = GameObject.Find("obj 5").GetComponent<Image>();
 
         var startColor = obj0.color;
         startColor.a = 0.25f;
         obj0.color = startColor;
         obj1.color = startColor;
         obj2.color = startColor;
-        obj3.color = startColor;
-        obj4.color = startColor;
-        obj5.color = startColor;
+        obj2alts.color = startColor;
+        //obj3.color = startColor;
+        //obj4.color = startColor;
+        //obj5.color = startColor;
     }
 
     // Update is called once per frame
@@ -90,6 +93,7 @@ public class detectIfSucked : MonoBehaviour
             currentColor.a = 0.25f;
         }
         obj2.color = currentColor;
+        obj2alts.color = currentColor;
 
         if (obj3Sucked == true)
         {
@@ -99,7 +103,7 @@ public class detectIfSucked : MonoBehaviour
         {
             currentColor.a = 0.25f;
         }
-        obj3.color = currentColor;
+        //obj3.color = currentColor;
 
         if (obj4Sucked == true)
         {
@@ -109,7 +113,7 @@ public class detectIfSucked : MonoBehaviour
         {
             currentColor.a = 0.25f;
         }
-        obj4.color = currentColor;
+        //obj4.color = currentColor;
 
         if (obj5Sucked == true)
         {
@@ -119,6 +123,6 @@ public class detectIfSucked : MonoBehaviour
         {
             currentColor.a = 0.25f;
         }
-        obj5.color = currentColor;
+        //obj5.color = currentColor;
     }
 }
