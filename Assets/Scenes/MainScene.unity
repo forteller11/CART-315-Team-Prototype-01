@@ -4536,7 +4536,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9797fc6d225542c69384293212c84626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SuckIncreaseOnEnergyCollision: 2
+  SuckIncreaseOnEnergyCollision: 3
+  SuckIncreaseTimeOnEnergyCollision: 5
 --- !u!1 &1271237859
 GameObject:
   m_ObjectHideFlags: 0

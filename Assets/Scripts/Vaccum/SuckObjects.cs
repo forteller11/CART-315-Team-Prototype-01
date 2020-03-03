@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class SuckObjects : MonoBehaviour
 {
-    public float SuckMultiplier = 1f;
+    public float PowerUpSuckMultiplier = 1f;
     [SerializeField] private LayerMask LayersThatCanBlockSuck;
 
 
@@ -49,7 +49,7 @@ public class SuckObjects : MonoBehaviour
         {
 
             float curveIndex = 1 - (forceDirMag / _settings.SuckRadius);
-            var forceMult = _settings.SuckCurve.Evaluate(curveIndex) * _settings.MaxSuck * SuckMultiplier;
+            var forceMult = _settings.SuckCurve.Evaluate(curveIndex) * _settings.MaxSuck * PowerUpSuckMultiplier;
 
             var forceToApply = -(_inputValue * forceMult * forceDir);
 

@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Timers;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Legs
 {
@@ -6,7 +10,8 @@ namespace Legs
     {
         private SuckObjects SuckObjects;
         [SerializeField] private float SuckIncreaseOnEnergyCollision = 2f;
-
+        [SerializeField] private float SuckIncreaseTimeOnEnergyCollision = 2; //2s
+        
         void Start()
         {
             SuckObjects = GameObject.Find("SuckObjects").GetComponent<SuckObjects>();
@@ -33,9 +38,20 @@ namespace Legs
                 case Swallowable.CombinableType.Energy | Swallowable.CombinableType.Energy:
                     s1.Pool.ReturnToPool(s1.gameObject);
                     s2.Pool.ReturnToPool(s2.gameObject);
-                    SuckObjects.SuckMultiplier *= SuckIncreaseOnEnergyCollision;
+                    SuckObjects.PowerUpSuckMultiplier = SuckIncreaseOnEnergyCollision;
+                    // TODO create particle system to show change
+                    StopCoroutine("ResetSuckForce");
+                    StartCoroutine("ResetSuckForce");
                     break;
             }
+        }
+
+        IEnumerator ResetSuckForce()
+        {
+            yield return new WaitForSeconds(SuckIncreaseTimeOnEnergyCollision);
+            SuckObjects.PowerUpSuckMultiplier = 1f;
+            
+            Debug.Log("back to normal");
         }
     }
 }

@@ -37,7 +37,8 @@ public class VaccumTubeManager : MonoBehaviour
         _lineRenderer.widthMultiplier = Settings.WidthMultiplier;
         _lineRenderer.material = LineRendererMaterial;
         _lineRenderer.material.color = Settings.VaccumSegmentLineColor;
-        _lineRenderer.transform.position = new Vector3(0,0f,-20f);
+        _lineRenderer.sortingLayerID = SortingLayer.NameToID("BehindVaccum");
+        _lineRenderer.transform.position = new Vector3(0,0f,0f);
         
         //spawn initial leg attached to leg factory
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
