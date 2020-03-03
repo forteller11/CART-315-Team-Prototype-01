@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!70 &3694015711139677607
+--- !u!70 &-618715396663652446
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11,6 +11,22 @@ CapsuleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0038650036, y: 0.06255206}
+  m_Size: {x: 0.37224564, y: 1.2018099}
+  m_Direction: 0
+--- !u!70 &3694015711139677607
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814820528617169093}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0038650036, y: 0.06255206}
@@ -51,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
         type: 3}
       propertyPath: m_Name
-      value: SuckableObjects
+      value: Wine
       objectReference: {fileID: 0}
     - target: {fileID: 1007132330974232369, guid: 1378cbf70997e8044bb5f57b2be04520,
         type: 3}

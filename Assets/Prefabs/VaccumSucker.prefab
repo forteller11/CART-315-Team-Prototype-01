@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e990bd39040e244b3b833931f85ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _centerOfSuckOffset: {x: 0, y: 0}
+  SuckMultiplier: 1
   LayersThatCanBlockSuck:
     serializedVersion: 2
     m_Bits: 8704
@@ -477,8 +477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c354f2e67402f1e4f877044b24acd9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WasteRotateOnVaccumAmount: 0.09
-  RelativeScaleChangeOnSwallow: 0.4
+  WasteRotateOnVaccumAmount: 0.005
+  RelativeScaleChangeOnSwallow: 0.6
   RelativeMassChangeOnSwallow: 0.01
 --- !u!61 &8560278150987277520
 BoxCollider2D:

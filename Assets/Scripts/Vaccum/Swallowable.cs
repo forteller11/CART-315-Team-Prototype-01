@@ -8,6 +8,7 @@ using UnityEngine;
 public class Swallowable : MonoBehaviour, IPoolable
 {
     public CombinableType Type;
+    [SerializeField] private CombineManager CombineManager;
     public GameObjectPool Pool { get; set; }
     [HideInInspector] public bool BeginCheckingForCombinations;
     [Flags]
@@ -31,24 +32,9 @@ public class Swallowable : MonoBehaviour, IPoolable
         if (otherSwallowable == null) //make sure other item is of combinable/swalloable type
             return;
 
-        var combinedType = otherSwallowable.Type | Type;
+        //manage powerups
+        CombineManager.OnCombination(this, otherSwallowable);
 
-        //Add Functionality here
-        switch (combinedType)
-        {
-            //if a liquid and energy type combine...
-            case CombinableType.Liquid | CombinableType.Energy:
-                VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color = Color.red;
-                this.Pool.ReturnToPool(this.gameObject);
-                otherSwallowable.Pool.ReturnToPool(otherSwallowable.gameObject);
-                //TODO start coroutine to force multiplier in settings.... at end it changes it back
-                break;
-            
-            //if a clothe and energy type combine...
-            case CombinableType.Clothes | CombinableType.Energy:
-                break;
-        }
-        
-    
+
     }
 }

@@ -8,13 +8,10 @@ using UnityEngine;
 
 public class SuckObjects : MonoBehaviour
 {
-    [SerializeField] private Vector2 _centerOfSuckOffset;
+    public float SuckMultiplier = 1f;
     [SerializeField] private LayerMask LayersThatCanBlockSuck;
 
-    private Vector2 CenterOfSuck
-    {
-        get => _centerOfSuckOffset + new Vector2(transform.position.x, transform.position.y); 
-    }
+
     [SerializeField] private VaccumSettingsScriptable _settings;
     
     private ControlsMaster _input;
@@ -41,7 +38,7 @@ public class SuckObjects : MonoBehaviour
         if (_inputValue == 0)
             return;
         
-        var forceDir = other.attachedRigidbody.position - CenterOfSuck;
+        var forceDir = other.attachedRigidbody.position - transform.position.To2DIgnoreZ();
         var forceDirMag = forceDir.magnitude;
         
         //check if something is inbetween object and sucker, if so, don't suck'
@@ -52,12 +49,12 @@ public class SuckObjects : MonoBehaviour
         {
 
             float curveIndex = 1 - (forceDirMag / _settings.SuckRadius);
-            var forceMult = _settings.SuckCurve.Evaluate(curveIndex) * _settings.MaxSuck;
+            var forceMult = _settings.SuckCurve.Evaluate(curveIndex) * _settings.MaxSuck * SuckMultiplier;
 
             var forceToApply = -(_inputValue * forceMult * forceDir);
 
             other.attachedRigidbody.AddForce(forceToApply);
-            Debug.DrawLine(CenterOfSuck, other.transform.position, new Color(1, 1, 0, curveIndex/2f + 0.5f));
+            Debug.DrawLine(this.transform.position, other.transform.position, new Color(1, 1, 0, curveIndex/2f + 0.5f));
         }
         else 
             Debug.DrawLine(posOrigin, hit.point, Color.red);
@@ -66,6 +63,6 @@ public class SuckObjects : MonoBehaviour
     private void OnDrawGizmos()
     {
 
-        Gizmos.DrawWireSphere(CenterOfSuck, _settings.SuckRadius);
+        Gizmos.DrawWireSphere(transform.position, _settings.SuckRadius);
     }
 }

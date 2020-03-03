@@ -15,7 +15,7 @@ using Unity.Mathematics;
 public class VaccumTubeManager : MonoBehaviour
 {
     [Range(0, 100)] private int TubeLength = 20;
-    [SerializeField] private VaccumSettingsScriptable SettingsScriptable;
+    [SerializeField] private VaccumSettingsScriptable Settings;
     [SerializeField] private GameObjectPool LegPool;
     [SerializeField] private Material LineRendererMaterial;
     
@@ -33,10 +33,10 @@ public class VaccumTubeManager : MonoBehaviour
         _lineRenderer.startColor = Color.white;
         _lineRenderer.endColor = Color.white;
         _lineRenderer.positionCount = TubeLength;
-        _lineRenderer.widthCurve = SettingsScriptable.ScaleCurve;
-        _lineRenderer.widthMultiplier = SettingsScriptable.WidthMultiplier;
+        _lineRenderer.widthCurve = Settings.ScaleCurve;
+        _lineRenderer.widthMultiplier = Settings.WidthMultiplier;
         _lineRenderer.material = LineRendererMaterial;
-        _lineRenderer.material.color = SettingsScriptable.VaccumSegmentLineColor;
+        _lineRenderer.material.color = Settings.VaccumSegmentLineColor;
         _lineRenderer.transform.position = new Vector3(0,0f,-20f);
         
         //spawn initial leg attached to leg factory
@@ -44,7 +44,7 @@ public class VaccumTubeManager : MonoBehaviour
         _rbs = new List<Rigidbody2D>(TubeLength);
         
         var first = LegPool.Spawn();
-        first.GetComponent<SpriteRenderer>().color = SettingsScriptable.VaccumSegmentTint;
+        first.GetComponent<SpriteRenderer>().color = Settings.VaccumSegmentTint;
         
         SpringJoint2D prevJnt;
         Rigidbody2D prevRb;
@@ -64,13 +64,13 @@ public class VaccumTubeManager : MonoBehaviour
             if (i != TubeLength - 1)
             {
                 current = LegPool.Spawn();
-                current.GetComponent<SpriteRenderer>().color = SettingsScriptable.VaccumSegmentTint;
+                current.GetComponent<SpriteRenderer>().color = Settings.VaccumSegmentTint;
             }
             else //if the last segment, spawn the sucker
             {
-                current = Instantiate(SettingsScriptable.VaccumTipPrefab);
+                current = Instantiate(Settings.VaccumTipPrefab);
                 current.name = $" {gameObject.name}'s Sucker";
-                current.GetComponent<SpriteRenderer>().color = SettingsScriptable.VaccumTipTint;
+                current.GetComponent<SpriteRenderer>().color = Settings.VaccumTipTint;
                 _suction = current.GetComponent<Suction>();
                 if (_suction == null) Debug.LogError("_sucker not assigned, the prefab is probably not configured properly!");
             }
@@ -91,20 +91,20 @@ public class VaccumTubeManager : MonoBehaviour
         jnt = current.GetComponent<SpringJoint2D>();
         rb = current.GetComponent<Rigidbody2D>();
 
-        float deltaY = (SettingsScriptable.ScaleCurve.Evaluate(normalizedIndex) * SettingsScriptable.JointDistance)/2;
+        float deltaY = (Settings.ScaleCurve.Evaluate(normalizedIndex) * Settings.JointDistance)/2;
         rb.position = toAttachRb.position + new Vector2(0, deltaY);
         jnt.connectedBody = toAttachRb;
 
         jnt.autoConfigureDistance = false;
-        jnt.distance = SettingsScriptable.JointDistance/2 * SettingsScriptable.ScaleCurve.Evaluate(normalizedIndex);
-        jnt.frequency = SettingsScriptable.MaxFrequency * SettingsScriptable.FrequencyCurve.Evaluate(normalizedIndex);
-        jnt.dampingRatio = SettingsScriptable.MaxDampening * SettingsScriptable.DampeningCurve.Evaluate(normalizedIndex);
+        jnt.distance = Settings.JointDistance/2 * Settings.ScaleCurve.Evaluate(normalizedIndex);
+        jnt.frequency = Settings.MaxFrequency * Settings.FrequencyCurve.Evaluate(normalizedIndex);
+        jnt.dampingRatio = Settings.MaxDampening * Settings.DampeningCurve.Evaluate(normalizedIndex);
         //jnt.enableCollision = false;
         
-        rb.gravityScale = SettingsScriptable.MaxGravity * SettingsScriptable.GravityCurve.Evaluate(normalizedIndex);
-        rb.mass = SettingsScriptable.MaxMass * SettingsScriptable.MassCurve.Evaluate(normalizedIndex);
+        rb.gravityScale = Settings.MaxGravity * Settings.GravityCurve.Evaluate(normalizedIndex);
+        rb.mass = Settings.MaxMass * Settings.MassCurve.Evaluate(normalizedIndex);
 
-        current.transform.localScale = SettingsScriptable.ScaleCurve.Evaluate(normalizedIndex) * SettingsScriptable.MaxScale;
+        current.transform.localScale = Settings.ScaleCurve.Evaluate(normalizedIndex) * Settings.MaxScale;
 
     }
     
@@ -133,10 +133,10 @@ public class VaccumTubeManager : MonoBehaviour
         //amount walll is being sucked vs arm being moved, determined by input and whether close to suctionable (layer-mask) rigidbody
         float suctionAmountNorm = ((float) collisionSuctionPoints.Length / _suction.SuctionCollidersCount) * inputSuck;
         
-        blowerRB.angularDrag = Mathf.Lerp(SettingsScriptable.AngularDampeningOnNoSuction, SettingsScriptable.AngularDampeningOnSuction, suctionAmountNorm);
+        blowerRB.angularDrag = Mathf.Lerp(Settings.AngularDampeningOnNoSuction, Settings.AngularDampeningOnSuction, suctionAmountNorm);
 
         //apply suction forces
-        float maxForceForEachSuctionPoint = (float) SettingsScriptable.MaxSuctionForce / _suction.SuctionCollidersCount;
+        float maxForceForEachSuctionPoint = (float) Settings.MaxSuctionForce / _suction.SuctionCollidersCount;
         for (int i = 0; i < collisionSuctionPoints.Length; i++)
         {
             var towardsSuction = collisionSuctionPoints[i] - blowerRB.position;
@@ -151,23 +151,23 @@ public class VaccumTubeManager : MonoBehaviour
         for (int i = 0; i < _rbs.Count; i++)
         {
             float indexNorm = (float) i / (_rbs.Count - 1);
-            float forceMult = (1 - suctionAmountNorm) * SettingsScriptable.OpenMaxForce * SettingsScriptable.OpenForceCurve.Evaluate(indexNorm);
+            float forceMult = (1 - suctionAmountNorm) * Settings.OpenMaxForce * Settings.OpenForceCurve.Evaluate(indexNorm);
             var forceToAddUnclamped = forceMult * inputMove;
 
             _rbs[i].AddForce(forceToAddUnclamped);
             _rigidbody2D.AddForce(-forceToAddUnclamped); //so can't float/ drag yourself forward like superman
             //clamp current vel, not add force
             float mag = _rbs[i].velocity.magnitude;
-            if (mag > SettingsScriptable.MaxTubeVelocity)
+            if (mag > Settings.MaxTubeVelocity)
             {
-                float percentageToMaxMag =  SettingsScriptable.MaxTubeVelocity / mag;
+                float percentageToMaxMag =  Settings.MaxTubeVelocity / mag;
                 _rbs[i].velocity *= percentageToMaxMag;
             }
 
         }
 
         { //force to body (if suction)
-            Vector2 forceToApply = SettingsScriptable.ForceOnBody * suctionAmountNorm * inputMove;
+            Vector2 forceToApply = Settings.ForceOnBody * suctionAmountNorm * inputMove;
             _rigidbody2D.AddForce(forceToApply);
         }
     }
@@ -191,7 +191,7 @@ public class VaccumTubeManager : MonoBehaviour
         {
             float targetZ = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) - 90f;
             float currentZ = _rbs.LastElement().rotation;
-            float zRot = Mathf.LerpAngle(currentZ, targetZ, SettingsScriptable.VaccumeHeadRotatePercent);
+            float zRot = Mathf.LerpAngle(currentZ, targetZ, Settings.VaccumeHeadRotatePercent);
             _rbs.LastElement().rotation = zRot;
         }
 
