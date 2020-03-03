@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class detectIfSucked : MonoBehaviour
 {
+    GameObject suckableObjects;
+    Swallowable swallowablesScript;
+
     public bool obj0Sucked;
     public bool obj1Sucked;
     public bool obj2Sucked;
@@ -22,6 +25,9 @@ public class detectIfSucked : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        suckableObjects = GameObject.Find("Suckable Objects Pool");
+        swallowablesScript = suckableObjects.GetComponent<Swallowable>();
+
         obj0Sucked = false;
         obj1Sucked = false;
         obj2Sucked = false;
@@ -54,6 +60,7 @@ public class detectIfSucked : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Debug.Log(Swallowable.CombinableType.Energy);
         var currentColor = obj0.color;
         if(obj0Sucked == true)
         {

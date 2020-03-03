@@ -3956,11 +3956,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 255534049}
   - {fileID: 302226285}
+  - {fileID: 1317013211}
   - {fileID: 1701628309}
   - {fileID: 1740095192}
-  - {fileID: 1317013211}
+  - {fileID: 255534049}
   - {fileID: 1406982349}
   - {fileID: 1028482267}
   - {fileID: 1983869828}
@@ -4409,7 +4409,7 @@ GameObject:
   - component: {fileID: 1340648703}
   - component: {fileID: 1340648702}
   m_Layer: 5
-  m_Name: UI controls
+  m_Name: Combo Heading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4465,9 +4465,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '[Ctrl] key = cycle between items
-
-    [Tab] key or [Return] key = Enable/Disable'
+  m_Text: 'Combo: nothing right now'
 --- !u!222 &1340648703
 CanvasRenderer:
   m_ObjectHideFlags: 0

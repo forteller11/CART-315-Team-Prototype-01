@@ -3,6 +3,7 @@ using System.Collections;
 using System.Timers;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using UnityEngine.UI;
 
 namespace Legs
 {
@@ -11,12 +12,15 @@ namespace Legs
         private SuckObjects SuckObjects;
         [SerializeField] private float SuckIncreaseOnEnergyCollision = 2f;
         [SerializeField] private float SuckIncreaseTimeOnEnergyCollision = 2; //2s
-        
+
+        private Text comboText;
+
         void Start()
         {
             SuckObjects = GameObject.Find("SuckObjects").GetComponent<SuckObjects>();
             if (SuckObjects == null)
                 Debug.LogError("Suck Objects not found, has the name of the prefab been changed?");
+            comboText = GameObject.Find("Combo Heading").GetComponent<Text>();
         }
         public void OnCombination(Swallowable s1, Swallowable s2)
         {
@@ -31,6 +35,7 @@ namespace Legs
                     VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color = Color.red;
                     s1.Pool.ReturnToPool(s1.gameObject);
                     s2.Pool.ReturnToPool(s2.gameObject);
+                    comboText.text = "Combo: Liquid + Energy";
                     //TODO start coroutine to force multiplier in settings.... at end it changes it back
                     break;
             
@@ -39,6 +44,7 @@ namespace Legs
                     s1.Pool.ReturnToPool(s1.gameObject);
                     s2.Pool.ReturnToPool(s2.gameObject);
                     SuckObjects.PowerUpSuckMultiplier = SuckIncreaseOnEnergyCollision;
+                    comboText.text = "Combo: Energy + Energy";
                     // TODO create particle system to show change
                     StopCoroutine("ResetSuckForce");
                     StartCoroutine("ResetSuckForce");
