@@ -67,8 +67,6 @@ namespace Legs
         {
             yield return new WaitForSeconds(SuckIncreaseTimeOnEnergyCollision);
             SuckObjects.PowerUpSuckMultiplier = 1f;
-            
-            Debug.Log("back to normal");
         }
     }
 }
