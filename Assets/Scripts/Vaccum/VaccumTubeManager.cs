@@ -178,7 +178,6 @@ public class VaccumTubeManager : MonoBehaviour
 
         { //force to body (if suction)
             Vector2 forceToApply = Settings.ForceOnBody * suctionAmountNorm * inputMove;
-            Debug.Log(forceToApply);
             _rigidbody2D.AddForce(forceToApply);
         }
     }
