@@ -43,7 +43,9 @@ namespace Legs
             {
                 //if a liquid and energy type combine...
                 case Swallowable.CombinableType.Liquid | Swallowable.CombinableType.Energy:
-                    VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color = Color.red;
+                    VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color += new Color(0.2f, 0f, 0f);
+                    StopCoroutine("ResetColor");
+                    StartCoroutine("ResetColor");
                     s1.Pool.ReturnToPool(s1.gameObject);
                     s2.Pool.ReturnToPool(s2.gameObject);
                     currentColor = Color.red;
@@ -75,13 +77,19 @@ namespace Legs
             }
         }
 
+        IEnumerator ResetColor()
+        {
+            yield return new WaitForSeconds(SuckIncreaseTimeOnEnergyCollision);
+            VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color = Color.white;
+            notificationText.text = "Color returned to normal";
+        }
+        
         IEnumerator ResetSuckForce()
         {
             yield return new WaitForSeconds(SuckIncreaseTimeOnEnergyCollision);
             SuckObjects.PowerUpSuckMultiplier = 1f;
 
             notificationText.text = "Suck power returned to normal";
-            Debug.Log("back to normal");
         }
     }
 }
