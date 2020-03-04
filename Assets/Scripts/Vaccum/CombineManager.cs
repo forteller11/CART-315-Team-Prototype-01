@@ -43,7 +43,7 @@ namespace Legs
             {
                 //if a liquid and energy type combine...
                 case Swallowable.CombinableType.Liquid | Swallowable.CombinableType.Energy:
-                    VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color += new Color(0.2f, 0f, 0f);
+                    VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color = Color.red
                     StopCoroutine("ResetColor");
                     StartCoroutine("ResetColor");
                     s1.Pool.ReturnToPool(s1.gameObject);
