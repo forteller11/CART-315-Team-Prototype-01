@@ -14,6 +14,7 @@ namespace Legs
         [SerializeField] private float SuckIncreaseTimeOnEnergyCollision = 2; //2s
 
         private Text comboText;
+        private Text notificationText;
 
         GameObject UI;
         detectIfSucked suctionDetectionScript;
@@ -23,9 +24,13 @@ namespace Legs
             SuckObjects = GameObject.Find("SuckObjects").GetComponent<SuckObjects>();
             if (SuckObjects == null)
                 Debug.LogError("Suck Objects not found, has the name of the prefab been changed?");
+
             comboText = GameObject.Find("Combo Heading").GetComponent<Text>();
+            notificationText = GameObject.Find("Notification Heading").GetComponent<Text>();
+
             UI = GameObject.Find("UI");
             suctionDetectionScript = UI.GetComponent<detectIfSucked>();
+            notificationText.text = "";
         }
         public void OnCombination(Swallowable s1, Swallowable s2)
         {
@@ -47,10 +52,11 @@ namespace Legs
                     suctionDetectionScript.obj0Sucked = true; // energy 1
                     suctionDetectionScript.obj1Sucked = false; // energy 2
                     suctionDetectionScript.obj2Sucked = true; // liquid 
+                    notificationText.text = "";
                     //TODO start coroutine to force multiplier in settings.... at end it changes it back
                     break;
             
-                //if a clothe and energy type combine...
+                //if a energy and energy type combine...
                 case Swallowable.CombinableType.Energy | Swallowable.CombinableType.Energy:
                     s1.Pool.ReturnToPool(s1.gameObject);
                     s2.Pool.ReturnToPool(s2.gameObject);
@@ -61,6 +67,7 @@ namespace Legs
                     suctionDetectionScript.obj0Sucked = true; // energy 1
                     suctionDetectionScript.obj1Sucked = true; // energy 2
                     suctionDetectionScript.obj2Sucked = false; // liquid 
+                    notificationText.text = "Suck power Temporarily increased!";
                     // TODO create particle system to show change
                     StopCoroutine("ResetSuckForce");
                     StartCoroutine("ResetSuckForce");
@@ -72,7 +79,8 @@ namespace Legs
         {
             yield return new WaitForSeconds(SuckIncreaseTimeOnEnergyCollision);
             SuckObjects.PowerUpSuckMultiplier = 1f;
-            
+
+            notificationText.text = "Suck power returned to normal";
             Debug.Log("back to normal");
         }
     }
