@@ -31,6 +31,7 @@ namespace Legs
         {
             Debug.Log("on combo");
             var combinedType = s1.Type | s2.Type;
+            var currentColor = comboText.color;
 
             //Add Functionality here
             switch (combinedType)
@@ -40,7 +41,9 @@ namespace Legs
                     VaccumBodySingleton.Instance.GetComponent<SpriteRenderer>().color = Color.red;
                     s1.Pool.ReturnToPool(s1.gameObject);
                     s2.Pool.ReturnToPool(s2.gameObject);
-                    comboText.text = "Combo: Liquid + Energy";
+                    currentColor = Color.red;
+                    comboText.color = currentColor;
+                    comboText.text = "Liquid + Energy";
                     suctionDetectionScript.obj0Sucked = true; // energy 1
                     suctionDetectionScript.obj1Sucked = false; // energy 2
                     suctionDetectionScript.obj2Sucked = true; // liquid 
@@ -52,7 +55,9 @@ namespace Legs
                     s1.Pool.ReturnToPool(s1.gameObject);
                     s2.Pool.ReturnToPool(s2.gameObject);
                     SuckObjects.PowerUpSuckMultiplier = SuckIncreaseOnEnergyCollision;
-                    comboText.text = "Combo: Energy + Energy";
+                    currentColor = Color.yellow;
+                    comboText.color = currentColor;
+                    comboText.text = "Energy + Energy";
                     suctionDetectionScript.obj0Sucked = true; // energy 1
                     suctionDetectionScript.obj1Sucked = true; // energy 2
                     suctionDetectionScript.obj2Sucked = false; // liquid 
