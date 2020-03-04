@@ -22,6 +22,9 @@ public class VaccumTubeManager : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private LineRenderer _lineRenderer;
     private ControlsMaster _input;
+    private Vector2 _inputMoveValue;
+    private Vector2 _inputRotateValue;
+    private float _inputSuckValue;
     private List<Rigidbody2D> _rbs;
     private const float ALIGN_VERTICALLY = -90f;
     private Suction _suction;
@@ -115,8 +118,14 @@ public class VaccumTubeManager : MonoBehaviour
 
     void Update()
     {
-        MoveLegs(_input.Vaccum.MoveTube.ReadValue<Vector2>(), _input.Vaccum.Suck.ReadValue<float>());
-        RotateVaccumHead(_input.Vaccum.RotateHead.ReadValue<Vector2>());
+        _inputMoveValue = _input.Vaccum.MoveTube.ReadValue<Vector2>();
+        _inputSuckValue = _input.Vaccum.Suck.ReadValue<float>();
+        _inputRotateValue = _input.Vaccum.RotateHead.ReadValue<Vector2>();
+    }
+    void FixedUpdate()
+    {
+        MoveLegs(_inputMoveValue, _inputSuckValue);
+        RotateVaccumHead(_inputRotateValue);
         for (int i = 0; i < _rbs.Count; i++)
             _lineRenderer.SetPosition(i, _rbs[i].transform.position);
         UpdateVaccumSpriteDirections();
@@ -169,6 +178,7 @@ public class VaccumTubeManager : MonoBehaviour
 
         { //force to body (if suction)
             Vector2 forceToApply = Settings.ForceOnBody * suctionAmountNorm * inputMove;
+            Debug.Log(forceToApply);
             _rigidbody2D.AddForce(forceToApply);
         }
     }
