@@ -227,7 +227,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   JointDistance: 1.22
-  ForceOnBody: 550
+  ForceOnBody: 1200
   WidthMultiplier: 0.7
   VaccumTipPrefab: {fileID: 1007132330974232369, guid: 2dfb94dbbe1057d4b99d601b45bf3920,
     type: 3}
@@ -278,7 +278,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   MaxSuck: 1.5
-  VaccumeHeadRotatePercent: 0.066
-  MaxSuctionForce: 150
+  VaccumeHeadRotatePercent: 0.133
+  MaxSuctionForce: 200
   AngularDampeningOnSuction: 15
   AngularDampeningOnNoSuction: 10000
